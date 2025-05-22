@@ -1,3 +1,13 @@
+CREATE DATABASE db_queropet;
+
+use db_queropet;
+
+create table tbl_endereco(
+	id int not null primary key auto_increment,
+    estado varchar(24) not null,
+    cep varchar(12)
+);
+
 create table tbl_usuario(
 	id int not null primary key auto_increment,
     nome varchar(100) not null,
@@ -13,12 +23,6 @@ create table tbl_usuario(
     references tbl_endereco(id)
 );
 
-create table tbl_endereco(
-	id int not null primary key auto_increment,
-    cidade varchar(100) not null,
-    estado varchar(24)
-);
-
 create table tbl_contato(
 	id int not null primary key auto_increment,
     telefone varchar(100) not null,
@@ -28,3 +32,15 @@ create table tbl_contato(
     foreign key (id_usuario)
     references tbl_usuario(id)
 )
+
+
+ALTER TABLE tbl_endereco
+DROP COLUMN cidade;
+
+ALTER TABLE tbl_endereco
+ADD COLUMN cep VARCHAR(12);
+
+
+show tables ;
+
+SELECT * FROM tbl_endereco;
