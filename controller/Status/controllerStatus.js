@@ -64,12 +64,12 @@ const atualizarStatus = async function(id, status, contentType){
                             let resultstatus = await statusDAO.updateStatus(status)
 
                             if(resultstatus){
-                                return message.SUCESS_UPDATED_ITEM//200
+                                return message.SUCCESS_UPDATE_ITEM//200
                             }else{
                                 return message.ERROR_INTERNAL_SERVER_MODEL//500
                             }
                         }else{
-                            return message.ERROR_NOT_FOUND//404
+                            return message.ERROR_NO_FOUND//404
                         }
                     }
                 }
@@ -101,11 +101,11 @@ const excluirStatus = async function(numero){
                 let result = await statusDAO.deleteStatus(id)
 
                 if(result)
-                    return message.SUCCES_DELETE_ITEM//200
+                    return message.SUCCESS_DELETED_ITEM//200
                 else
                     return message.ERROR_INTERNAL_SERVER_MODEL//500
             }else{
-                return message.ERROR_NOT_FOUND//404
+                return message.ERROR_NO_FOUND//404
             }
         }else{
             return message.ERROR_INTERNAL_SERVER_MODEL//500
@@ -132,12 +132,12 @@ const listarStatus = async function(){
                 dadosstatus.status = true
                 dadosstatus.status_code = 200,
                 dadosstatus.items = resultstatus.length
-                dadosstatus.status = resultstatus
+                dadosstatus.Status = resultstatus
 
                 return dadosstatus
 
             }else{
-                return message.ERROR_NOT_FOUND//404
+                return message.ERROR_NO_FOUND//404
             }
         }else{
             return message.ERROR_INTERNAL_SERVER_MODEL//500
@@ -150,7 +150,7 @@ const listarStatus = async function(){
 }
 
 //Função para buscar uma status pelo ID
-const buscarstatus = async function(numero) {
+const buscarStatus = async function(numero) {
     try {
         let id = numero
 
@@ -168,11 +168,11 @@ const buscarstatus = async function(numero) {
                     // Cria um JSON para colocar o Array de músicas 
                     dadosstatus.status = true
                     dadosstatus.status_code = 200,
-                    dadosstatus.status = resultstatus
+                    dadosstatus.Status = resultstatus
 
                     return dadosstatus
                 }else{
-                    return message.ERROR_NOT_FOUND // 404
+                    return message.ERROR_NO_FOUND // 404
                 }
             }else{
                 return message.ERROR_INTERNAL_SERVER_MODEL // 500

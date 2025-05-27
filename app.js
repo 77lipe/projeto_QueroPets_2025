@@ -266,7 +266,7 @@ app.post('/v1/controle-pet/status', cors(), bodyParserJSON, async function(reque
     response.json(resultstatus)
 })
 
-//END-POINT para listar todos os usuario
+//END-POINT para listar todos os status
 app.get('/v1/controle-pet/status', cors(), bodyParserJSON, async function(request, response) {
     
     let resultstatus = await controllerStatus.listarStatus()
@@ -275,7 +275,7 @@ app.get('/v1/controle-pet/status', cors(), bodyParserJSON, async function(reques
     response.json(resultstatus)
 })
 
-//END-POINT para buscar um usuario por id
+//END-POINT para buscar um status por id
 app.get('/v1/controle-pet/status/:id', cors(), bodyParserJSON, async function (request, response) {
     
     let Idstatus = request.params.id
@@ -286,7 +286,7 @@ app.get('/v1/controle-pet/status/:id', cors(), bodyParserJSON, async function (r
     response.json(resultstatus)
 })
 
-//END-POINT  para deletar um usuario 
+//END-POINT  para deletar um status 
 app.delete('/v1/controle-pet/status/:id', cors(), async function (request, response) {
     let id = request.params.id 
   
@@ -444,6 +444,70 @@ app.put('/v1/controle-pet/temperamento/:id', cors(), bodyParserJSON, async funct
 }) 
 
 /************************************************ ESPECIE *************************************************************/
+
+//END-POINT para inserir um especie
+app.post('/v1/controle-pet/especie', cors(), bodyParserJSON, async function(request, response){
+
+    //Recebe o content type da requisição
+    let contentType = request.headers['content-type']
+
+    //Recebe do body da requisição os dados encaminhados
+    let dadosBody = request.body
+    let resultEspecie = await controllerEspecie.inserirEspecie(dadosBody,contentType)
+
+    response.status(resultEspecie.status_code)
+    response.json(resultEspecie)
+})
+
+//END-POINT para listar todos os especie
+app.get('/v1/controle-pet/especie', cors(), bodyParserJSON, async function(request, response) {
+    
+    let resultEspecie = await controllerEspecie.listarEspecie()
+
+    response.status(resultEspecie.status_code)
+    response.json(resultEspecie)
+})
+
+//END-POINT para buscar um especie por id
+app.get('/v1/controle-pet/especie/:id', cors(), bodyParserJSON, async function (request, response) {
+    
+    let IdEspecie = request.params.id
+
+    let resultEspecie = await controllerEspecie.buscarEspecie(IdEspecie)
+    
+    response.status(resultEspecie.status_code)
+    response.json(resultEspecie)
+})
+
+//END-POINT  para deletar um especie 
+app.delete('/v1/controle-pet/especie/:id', cors(), async function (request, response) {
+    let IdEspecie = request.params.id 
+  
+    let resultEspecie = await controllerEspecie.excluirEspecie(IdEspecie)
+  
+    response.status(resultEspecie.status_code)
+    response.json(resultEspecie)
+})
+
+//END-POINT para atualizar um especie
+app.put('/v1/controle-pet/especie/:id', cors(), bodyParserJSON, async function (request,response){
+    
+    //Recebe o content-type da requisição
+    let contentType = request.headers['content-type']
+
+    //Recebe o ID da requisição
+    let IdEspecie = request.params.id
+
+    //Recebe os dados da requisição pelo body
+    let dadosBody = request.body
+
+    let resultEspecie = await controllerEspecie.atualizarEspecie(IdEspecie, dadosBody, contentType)
+
+    response.status(resultEspecie.status_code)
+    response.json(resultEspecie)
+}) 
+
+/************************************************ SEXO *************************************************************/
 
 //END-POINT para inserir um especie
 app.post('/v1/controle-pet/especie', cors(), bodyParserJSON, async function(request, response){

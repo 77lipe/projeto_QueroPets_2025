@@ -15,14 +15,11 @@
  const insertStatus = async function(status){
      try{
          let sql  = `insert into tbl_status (
-                         status, 
-                         
-                     values ( 
-                         '${status.status}', 
+                         status
+                        )  values ( 
+                         '${status.status}'
                          )`
- 
-         
-         
+
          //Await só vai funcionar se na função estiver com o async
          //Executa um script sql no banco de dados, e aguarda o resultado (retornando um true or false)
          let result  = await prisma.$executeRawUnsafe(sql)
