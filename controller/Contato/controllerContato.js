@@ -142,7 +142,7 @@ const listarContato = async function(){
                 //Cria um JSON para colocar o ARRAY de artistas
                 dadosContatos.status = true
                 dadosContatos.status_code = 200,
-                dadosContatos.items = resultContato
+                dadosContatos.items = resultContato.length
                 
                 for (itemContato of resultContato) {
                     
