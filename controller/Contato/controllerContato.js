@@ -154,7 +154,7 @@ const listarContato = async function(){
 
                     ContatoArray.push(itemContato)
                 }
-                console.log(ContatoArray)
+                // console.log(ContatoArray)
                 dadosContatos.contatos = ContatoArray
 
                 return dadosContatos
