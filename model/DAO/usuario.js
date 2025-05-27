@@ -149,11 +149,12 @@ const loginUser = async function(user){
 
 }
 
+
 module.exports = {
     insertUser,
     updateUser,
     deleteUser,
     selectAllUsers,
     selectByIdUser,
-    loginUser
+    loginUser,
 }

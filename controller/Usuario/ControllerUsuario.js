@@ -270,5 +270,6 @@ module.exports = {
     excluirUsuario,
     listarUsuario,
     buscarUsuario,
-    loginUsuario
+    loginUsuario,
+   
 }
