@@ -16,7 +16,8 @@ const porteDAO = require('../../model/DAO/porte.js')
 const inserirPorte = async function(porte, contentType){
     try {
 
-        if(String(contentType).toLocaleLowerCase() == 'application/json' )
+        if(String(contentType).toLocaleLowerCase() == 'application/json' ) 
+        
          { 
             if(
             porte.porte            == '' || porte.porte            == null || porte.porte            == undefined || porte.porte.length            > 100 
@@ -25,7 +26,6 @@ const inserirPorte = async function(porte, contentType){
          }else{
                 //encaminhando os dados da porte para o DAO realizar o insert no Banco de dados
                 let resultporte = await porteDAO.insertPorte(porte)
-
                 if(resultporte){
                     return message.SUCCESS_CREATED_ITEM // 201
                 }else{
@@ -46,15 +46,16 @@ const atualizarPorte = async function(id, porte, contentType){
         if(String(contentType).toLocaleLowerCase() == 'application/json' )
             { 
                if(
-               porte.porte            == '' || porte.porte            == null || porte.porte            == undefined || porte.porte.length            > 100 ||
-               id == ''                     || id == null                     || id == undefined                     || isNaN(id)
+                porte.porte            == '' || porte.porte            == null || porte.porte            == undefined || porte.porte.length             > 100 ||
+                id     == '' || id     == null || id     == undefined || isNaN(id) || id <=0
                )
                 {
-                   return message.ERROR_REQUIRED_FIELDS//porte code 400
+                    
+                   return message.ERROR_REQUIRED_FIELDS//status code 400
                 }else{
                     //Verificar se o ID existe
                     let result = await porteDAO.selectByIdPorte(id)
-                    
+                  
                     if(result != false || typeof(result) == 'object'){
                         if(result.length > 0){
                             //Update
@@ -64,12 +65,12 @@ const atualizarPorte = async function(id, porte, contentType){
                             let resultporte = await porteDAO.updatePorte(porte)
 
                             if(resultporte){
-                                return message.SUCESS_UPDATED_ITEM//200
+                                return message.SUCCESS_UPDATE_ITEM//200
                             }else{
                                 return message.ERROR_INTERNAL_SERVER_MODEL//500
                             }
                         }else{
-                            return message.ERROR_NOT_FOUND//404
+                            return message.ERROR_NO_FOUND//404
                         }
                     }
                 }
@@ -101,11 +102,11 @@ const excluirPorte = async function(numero){
                 let result = await porteDAO.deletePorte(id)
 
                 if(result)
-                    return message.SUCCES_DELETE_ITEM//200
+                    return message.SUCCESS_DELETED_ITEM//200
                 else
                     return message.ERROR_INTERNAL_SERVER_MODEL//500
             }else{
-                return message.ERROR_NOT_FOUND//404
+                return message.ERROR_NO_FOUND//404
             }
         }else{
             return message.ERROR_INTERNAL_SERVER_MODEL//500
@@ -120,24 +121,25 @@ const excluirPorte = async function(numero){
 //Função para retornar uma lista de músicas
 const listarPorte = async function(){
     try {
+
         //Criando um Objeto JSON
         let dadosporte = {}
 
-        //Chama a função para retornar as portes do banco de dados
-        let resultporte = await porteDAO.selectAllPorte()
+        //Chama a função para retornar as artistas do banco de dados
+        let resultPorte = await porteDAO.selectAllPorte()
 
-        if(resultporte != false){
-            if(resultporte.length > 0){
-                //Cria um JSON para colocar o ARRAY de portes
-                dadosporte.porte = true
-                dadosporte.porte_code = 200,
-                dadosporte.items = resultporte.length
-                dadosporte.porte = resultporte
+        if(resultPorte != false){
+            if(resultPorte.length > 0){
+                //Cria um JSON para colocar o ARRAY de artistas
+                dadosporte.status = true
+                dadosporte.status_code = 200,
+                dadosporte.items = resultPorte.length
+                dadosporte.porte = resultPorte
 
                 return dadosporte
 
             }else{
-                return message.ERROR_NOT_FOUND//404
+                return message.ERROR_NO_FOUND//404
             }
         }else{
             return message.ERROR_INTERNAL_SERVER_MODEL//500
@@ -158,21 +160,22 @@ const buscarPorte = async function(numero) {
         let dadosporte = {}
 
         if ( id == ''|| id == null || id == undefined || isNaN(id)){
-            return message.ERROR_REQUIRED_FIELDS // porte code 400
+            return message.ERROR_REQUIRED_FIELDS // status code 400
         }else{
             // Chama a função para retornar as músicas do banco de dados
-            let resultporte = await porteDAO.selectByIdPorte(id)
+            let resultPorte = await porteDAO.selectByIdPorte(id)
 
-            if(resultporte != false || typeof(resultporte) == 'object'){
-                if(resultporte.length > 0){
+            if(resultPorte != false || typeof(resultPorte) == 'object'){
+                if(resultPorte.length > 0){
                     // Cria um JSON para colocar o Array de músicas 
-                    dadosporte.porte = true
-                    dadosporte.porte_code = 200,
-                    dadosporte.porte = resultporte
-
+                    dadosporte.status = true
+                    dadosporte.status_code = 200
+                    dadosporte.porte = resultPorte
+    
                     return dadosporte
+    
                 }else{
-                    return message.ERROR_NOT_FOUND // 404
+                    return message.ERROR_NO_FOUND // 404
                 }
             }else{
                 return message.ERROR_INTERNAL_SERVER_MODEL // 500

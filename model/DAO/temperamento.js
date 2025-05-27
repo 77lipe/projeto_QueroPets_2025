@@ -17,7 +17,7 @@
          let sql  = `insert into tbl_temperamento (
                          temperamento, 
                          
-                     values ( 
+                        )values ( 
                          '${temperamento.temperamento}', 
                          )`
  

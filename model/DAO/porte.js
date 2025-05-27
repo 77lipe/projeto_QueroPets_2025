@@ -15,10 +15,9 @@
  const insertPorte = async function(porte){
      try{
          let sql  = `insert into tbl_porte (
-                         porte, 
-                         
-                     values ( 
-                         '${porte.porte}', 
+                         porte
+                    ) values ( 
+                         '${porte.porte}'
                          )`
  
          
@@ -41,8 +40,9 @@
  //Função para atualizar uma porte existente
  const updatePorte = async function(porte){
      try {
-         let sql = `update tbl_porte set porte = '${porte.porte}' where id = ${porte.id} `
- 
+        
+         let sql = `update tbl_porte set porte = '${porte.porte}' where id = '${porte.id}' `
+         
          let  result = await prisma.$executeRawUnsafe(sql)
  
          if(result)
@@ -57,7 +57,7 @@
  //Função para excluir uma porte existente
  const deletePorte = async function(id){
      try {
- 
+        
          let sql = `delete from tbl_porte where id=${id}`
  
          //
