@@ -64,12 +64,12 @@ const atualizarTemperamento = async function(id, temperamento, contentType){
                             let resulttemperamento = await temperamentoDAO.updateTemperamento(temperamento)
 
                             if(resulttemperamento){
-                                return message.SUCESS_UPDATED_ITEM//200
+                                return message.SUCCESS_UPDATE_ITEM//200
                             }else{
                                 return message.ERROR_INTERNAL_SERVER_MODEL//500
                             }
                         }else{
-                            return message.ERROR_NOT_FOUND//404
+                            return message.ERROR_NO_FOUND//404
                         }
                     }
                 }
@@ -101,11 +101,11 @@ const excluirTemperamento = async function(numero){
                 let result = await temperamentoDAO.deleteTemperamento(id)
 
                 if(result)
-                    return message.SUCCES_DELETE_ITEM//200
+                    return message.SUCCESS_DELETED_ITEM//200
                 else
                     return message.ERROR_INTERNAL_SERVER_MODEL//500
             }else{
-                return message.ERROR_NOT_FOUND//404
+                return message.ERROR_NO_FOUND//404
             }
         }else{
             return message.ERROR_INTERNAL_SERVER_MODEL//500
@@ -120,24 +120,25 @@ const excluirTemperamento = async function(numero){
 //Função para retornar uma lista de músicas
 const listarTemperamento = async function(){
     try {
+
         //Criando um Objeto JSON
-        let dadostemperamento = {}
+        let dadosTemperamento = {}
 
-        //Chama a função para retornar as temperamentos do banco de dados
-        let resulttemperamento = await temperamentoDAO.selectAllTemperamento()
+        //Chama a função para retornar as artistas do banco de dados
+        let resultTemperamento = await temperamentoDAO.selectAllTemperamento()
 
-        if(resulttemperamento != false){
-            if(resulttemperamento.length > 0){
-                //Cria um JSON para colocar o ARRAY de temperamentos
-                dadostemperamento.temperamento = true
-                dadostemperamento.temperamento_code = 200,
-                dadostemperamento.items = resulttemperamento.length
-                dadostemperamento.temperamento = resulttemperamento
+        if(resultTemperamento != false){
+            if(resultTemperamento.length > 0){
+                //Cria um JSON para colocar o ARRAY de artistas
+                dadosTemperamento.status = true
+                dadosTemperamento.status_code = 200,
+                dadosTemperamento.items = resultTemperamento.length
+                dadosTemperamento.temperamento = resultTemperamento
 
-                return dadostemperamento
+                return dadosTemperamento
 
             }else{
-                return message.ERROR_NOT_FOUND//404
+                return message.ERROR_NO_FOUND//404
             }
         }else{
             return message.ERROR_INTERNAL_SERVER_MODEL//500
@@ -172,7 +173,7 @@ const buscarTemperamento = async function(numero) {
 
                     return dadostemperamento
                 }else{
-                    return message.ERROR_NOT_FOUND // 404
+                    return message.ERROR_NO_FOUND // 404
                 }
             }else{
                 return message.ERROR_INTERNAL_SERVER_MODEL // 500

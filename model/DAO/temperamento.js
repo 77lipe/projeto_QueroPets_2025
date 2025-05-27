@@ -15,10 +15,10 @@
  const insertTemperamento = async function(temperamento){
      try{
          let sql  = `insert into tbl_temperamento (
-                         temperamento, 
+                         temperamento
                          
                         )values ( 
-                         '${temperamento.temperamento}', 
+                         '${temperamento.temperamento}'
                          )`
  
          
