@@ -11,7 +11,7 @@ const {PrismaClient} = require('@prisma/client')
 const prisma = new PrismaClient()
 
 //INSERT DO NOVO USUARIO
-const insertUser = async function(user){
+const insertUser = async function(user, contato){
     //Instancia (criar um objt a ser utilizado) a biblioteca do prisma/client
     try {
         
@@ -32,16 +32,34 @@ const insertUser = async function(user){
                                                 '${user.data_nascimento}',
                                                 '${user.cpf}',
                                                 '${user.id_endereco}'
-
                                             )`
 
             // Executa o scriptSQL no BD e aguarda o retorno no mesmo para saber se deu certo
             let result = await prisma.$executeRawUnsafe(sql)
+
+            if(result){
+                let resultId = await prisma.$queryRawUnsafe(`SELECT LAST_INSERT_ID() as id`)
+                let userId = resultId[0].id
+
+                let sqlContato = `insert into tbl_contato (  
+                    telefone,
+                    id_usuario
+                ) values (
+                    '${contato.telefone}',
+                    '${userId}'
+                )`
+
+                let resultContato = await prisma.$executeRawUnsafe(sqlContato)
+
+                if(resultContato)
+                    return true
+                else
+                    return false
+            }
+
             
-        if(result)
-            return true
-        else
-            return false
+            
+        
         
     } catch (error) {
         return false
