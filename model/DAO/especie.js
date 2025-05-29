@@ -39,7 +39,7 @@ const insertEspecie = async function(especie){
 //ATUALIZAR UMA ESPECIE EXISTENTE
 const updateEspecie = async function(especie){
     try {
-        let sql = `update tbl_especie set      especie = '${especie.especie}',
+        let sql = `update tbl_especie set      especie = '${especie.especie}'
                                                
                                                 
                                 where id = ${especie.id}`

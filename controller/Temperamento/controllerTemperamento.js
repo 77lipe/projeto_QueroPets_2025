@@ -156,22 +156,22 @@ const buscarTemperamento = async function(numero) {
         let id = numero
 
         // Objeto JSON
-        let dadostemperamento = {}
+        let dadosTemperamento = {}
 
         if ( id == ''|| id == null || id == undefined || isNaN(id)){
-            return message.ERROR_REQUIRED_FIELDS // temperamento code 400
+            return message.ERROR_REQUIRED_FIELDS // status code 400
         }else{
             // Chama a função para retornar as músicas do banco de dados
-            let resulttemperamento = await temperamentoDAO.selectByIdTemperamento(id)
+            let resultTemperamento = await temperamentoDAO.selectByIdTemperamento(id)
 
-            if(resulttemperamento != false || typeof(resulttemperamento) == 'object'){
-                if(resulttemperamento.length > 0){
+            if(resultTemperamento != false || typeof(resultTemperamento) == 'object'){
+                if(resultTemperamento.length > 0){
                     // Cria um JSON para colocar o Array de músicas 
-                    dadostemperamento.temperamento = true
-                    dadostemperamento.temperamento_code = 200,
-                    dadostemperamento.temperamento = resulttemperamento
+                    dadosTemperamento.status = true
+                    dadosTemperamento.status_code = 200,
+                    dadosTemperamento.temperamento = resultTemperamento
 
-                    return dadostemperamento
+                    return dadosTemperamento
                 }else{
                     return message.ERROR_NO_FOUND // 404
                 }

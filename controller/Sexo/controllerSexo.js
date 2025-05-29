@@ -60,16 +60,16 @@ const atualizarSexo = async function(id, sexo, contentType){
                             //Update
 
                             //Adiciona o atributo do ID no JSON com os dados recebidos do corpo da requisição
-                            especie.id = id
+                            sexo.id = id
                             let resultSexo = await sexoDAO.updateSexo(sexo)
 
                             if(resultSexo){
-                                return message.SUCESS_UPDATED_ITEM//200
+                                return message.SUCCESS_UPDATE_ITEM//200
                             }else{
                                 return message.ERROR_INTERNAL_SERVER_MODEL//500
                             }
                         }else{
-                            return message.ERROR_NOT_FOUND//404
+                            return message.ERROR_NO_FOUND//404
                         }
                     }
                 }
@@ -87,7 +87,7 @@ const atualizarSexo = async function(id, sexo, contentType){
 const excluirSexo = async function(sexo){
    try {
 
-    let id = raca
+    let id = sexo
 
     if(id == '' || id == null || id == undefined || isNaN(id)){
         return message.ERROR_REQUIRED_FIELDS
@@ -101,11 +101,11 @@ const excluirSexo = async function(sexo){
                 let result = await sexoDAO.deleteSexo(id)
 
                 if(result)
-                    return message.SUCCES_DELETE_ITEM//200
+                    return message.SUCCESS_DELETED_ITEM//200
                 else
                     return message.ERROR_INTERNAL_SERVER_MODEL//500
             }else{
-                return message.ERROR_NOT_FOUND//404
+                return message.ERROR_NO_FOUND//404
             }
         }else{
             return message.ERROR_INTERNAL_SERVER_MODEL//500
@@ -137,7 +137,7 @@ const listarSexo = async function(){
                 return dadosSexo
 
             }else{
-                return message.ERROR_NOT_FOUND//404
+                return message.ERROR_NO_FOUND//404
             }
         }else{
             return message.ERROR_INTERNAL_SERVER_MODEL//500
@@ -172,7 +172,7 @@ const buscarSexo = async function(sexo) {
 
                     return dadosSexo
                 }else{
-                    return message.ERROR_NOT_FOUND // 404
+                    return message.ERROR_NO_FOUND // 404
                 }
             }else{
                 return message.ERROR_INTERNAL_SERVER_MODEL // 500

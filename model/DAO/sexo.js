@@ -39,7 +39,7 @@ const insertSexo = async function(sexo){
 //ATUALIZAR UM ENDERECO EXISTENTE
 const updateSexo = async function(sexo){
     try {
-        let sql = `update tbl_sexo set      sexo = '${sexo.sexo}',
+        let sql = `update tbl_sexo set      sexo = '${sexo.sexo}'
                                                
                                                 
                                 where id = ${sexo.id}`

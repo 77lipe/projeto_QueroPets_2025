@@ -39,7 +39,7 @@ const insertRaca = async function(raca){
 //ATUALIZAR UM ENDERECO EXISTENTE
 const updateRaca = async function(raca){
     try {
-        let sql = `update tbl_raca set      raca = '${raca.raca}',
+        let sql = `update tbl_raca set      raca = '${raca.raca}'
                                                
                                                 
                                 where id = ${raca.id}`

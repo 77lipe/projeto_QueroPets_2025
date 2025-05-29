@@ -2,31 +2,31 @@
 * Objetivo: Controller rsponsavel pela integração entre o APP e a Model (CRUD de dados),
 *           Validaçôes, tratamento  de dados etc...
 * Data: 27/05/2025
-* Autor: Felipe
+* Autor: Eduardo
 * Versão: 1.0
 *********************************************************************************************************************************/
 
-//Import do arquivo de mensagens e status code
+//Import do arquivo de mensagens e comportamento code
 const message = require('../../modulo/config.js')
 
 //Import para realizar o CRUD no banco de dados
-const especieDAO = require('../../model/DAO/especie.js')
+const comportamentoDAO = require('../../model/DAO/comportamento.js')
 
-//Função para inserir uma nova status
-const inserirEspecie = async function(especie, contentType){
+//Função para inserir uma nova comportamento
+const inserirComportamento = async function(comportamento, contentType){
     try {
 
         if(String(contentType).toLocaleLowerCase() == 'application/json' )
          { 
             if(
-                especie.especie            == '' || especie.especie            == null || especie.especie            == undefined || especie.especie.length            > 100 
+            comportamento.comportamento            == '' || comportamento.comportamento            == null || comportamento.comportamento            == undefined || comportamento.comportamento.length            > 100 
             ){
-                return message.ERROR_REQUIRED_FIELDS//status code 400
+                return message.ERROR_REQUIRED_FIELDS//comportamento code 400
          }else{
-                //encaminhando os dados da status para o DAO realizar o insert no Banco de dados
-                let result = await especieDAO.insertEspecie(especie)
+                //encaminhando os dados da comportamento para o DAO realizar o insert no Banco de dados
+                let resultcomportamento = await comportamentoDAO.insertComportamento(comportamento)
 
-                if(result){
+                if(resultcomportamento){
                     return message.SUCCESS_CREATED_ITEM // 201
                 }else{
                     return message.ERROR_INTERNAL_SERVER_MODEL//500
@@ -40,30 +40,30 @@ const inserirEspecie = async function(especie, contentType){
     }
 }
 
-//Função para atualizar uma status existente
-const atualizarEspecie = async function(id, especie, contentType){
+//Função para atualizar uma comportamento existente
+const atualizarComportamento = async function(id, comportamento, contentType){
     try {
         if(String(contentType).toLocaleLowerCase() == 'application/json' )
             { 
                if(
-                especie.especie            == '' || especie.especie            == null || especie.especie            == undefined || especie.especie.length            > 100 ||
+               comportamento.comportamento            == '' || comportamento.comportamento            == null || comportamento.comportamento            == undefined || comportamento.comportamento.length            > 100 ||
                id == ''                     || id == null                     || id == undefined                     || isNaN(id)
                )
                 {
-                   return message.ERROR_REQUIRED_FIELDS//status code 400
+                   return message.ERROR_REQUIRED_FIELDS//comportamento code 400
                 }else{
                     //Verificar se o ID existe
-                    let result = await especieDAO.selectByIdEspecie(id)
+                    let result = await comportamentoDAO.selectByIdComportamento(id)
                     
                     if(result != false || typeof(result) == 'object'){
                         if(result.length > 0){
                             //Update
 
                             //Adiciona o atributo do ID no JSON com os dados recebidos do corpo da requisição
-                            especie.id = id
-                            let resultEspecie = await especieDAO.updateEspecie(especie)
+                            comportamento.id = id
+                            let resultcomportamento = await comportamentoDAO.updateComportamento(comportamento)
 
-                            if(resultEspecie){
+                            if(resultcomportamento){
                                 return message.SUCCESS_UPDATE_ITEM//200
                             }else{
                                 return message.ERROR_INTERNAL_SERVER_MODEL//500
@@ -83,22 +83,22 @@ const atualizarEspecie = async function(id, especie, contentType){
     
 }
 
-//Função para excluir uma status existente
-const excluirEspecie = async function(especie){
+//Função para excluir uma comportamento existente
+const excluirComportamento = async function(numero){
    try {
 
-    let id = especie
+    let id = numero
 
     if(id == '' || id == null || id == undefined || isNaN(id)){
         return message.ERROR_REQUIRED_FIELDS
     }else{
         
         //Antes de excluir estamos verificando se o id enviado existe 
-        let resultEspecie = await especieDAO.selectByIdEspecie(id)
-        if(resultEspecie!= false || typeof(resultEspecie)== "object"){
-            if(resultEspecie.length > 0){
+        let resultcomportamento = await comportamentoDAO.selectByIdComportamento(id)
+        if(resultcomportamento!= false || typeof(resultcomportamento)== "object"){
+            if(resultcomportamento.length > 0){
                 //delete
-                let result = await especieDAO.deleteEspecie(id)
+                let result = await comportamentoDAO.deleteComportamento(id)
 
                 if(result)
                     return message.SUCCESS_DELETED_ITEM//200
@@ -118,23 +118,23 @@ const excluirEspecie = async function(especie){
 }
 
 //Função para retornar uma lista de músicas
-const listarEspecie = async function(){
+const listarComportamento = async function(){
     try {
         //Criando um Objeto JSON
-        let dadosEspecie = {}
+        let dadosComp = {}
 
         //Chama a função para retornar as statuss do banco de dados
-        let resultEspecie = await especieDAO.selectAllEspecie()
+        let resultComp = await comportamentoDAO.selectAllComportamento()
 
-        if(resultEspecie != false){
-            if(resultEspecie.length > 0){
+        if(resultComp != false){
+            if(resultComp.length > 0){
                 //Cria um JSON para colocar o ARRAY de statuss
-                dadosEspecie.status = true
-                dadosEspecie.status_code = 200,
-                dadosEspecie.items = resultEspecie.length
-                dadosEspecie.species = resultEspecie
+                dadosComp.status = true
+                dadosComp.status_code = 200,
+                dadosComp.items = resultComp.length
+                dadosComp.comportamentos = resultComp
 
-                return dadosEspecie
+                return dadosComp
 
             }else{
                 return message.ERROR_NO_FOUND//404
@@ -149,28 +149,28 @@ const listarEspecie = async function(){
     
 }
 
-//Função para buscar uma status pelo ID
-const buscarEspecie = async function(especie) {
+//Função para buscar uma comportamento pelo ID
+const buscarComportamento = async function(numero) {
     try {
-        let id = especie
+        let id = numero
 
         // Objeto JSON
-        let dadosEspecie = {}
+        let dadosComp = {}
 
         if ( id == ''|| id == null || id == undefined || isNaN(id)){
             return message.ERROR_REQUIRED_FIELDS // status code 400
         }else{
             // Chama a função para retornar as músicas do banco de dados
-            let resultEspecie = await especieDAO.selectByIdEspecie(id)
+            let resultComp = await comportamentoDAO.selectByIdComportamento(id)
 
-            if(resultEspecie != false || typeof(resultEspecie) == 'object'){
-                if(resultEspecie.length > 0){
+            if(resultComp != false || typeof(resultComp) == 'object'){
+                if(resultComp.length > 0){
                     // Cria um JSON para colocar o Array de músicas 
-                    dadosEspecie.status = true
-                    dadosEspecie.status_code = 200,
-                    dadosEspecie.specie = resultEspecie
+                    dadosComp.status = true
+                    dadosComp.status_code = 200,
+                    dadosComp.comportamento = resultComp
 
-                    return dadosEspecie
+                    return dadosComp
                 }else{
                     return message.ERROR_NO_FOUND // 404
                 }
@@ -185,9 +185,9 @@ const buscarEspecie = async function(especie) {
 }
 
 module.exports = {
-    inserirEspecie,
-    atualizarEspecie,
-    excluirEspecie,
-    listarEspecie,
-    buscarEspecie
+    inserirComportamento,
+    atualizarComportamento,
+    excluirComportamento,
+    listarComportamento,
+    buscarComportamento
 }

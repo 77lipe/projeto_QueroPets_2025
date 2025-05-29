@@ -60,16 +60,16 @@ const atualizarRaca = async function(id, raca, contentType){
                             //Update
 
                             //Adiciona o atributo do ID no JSON com os dados recebidos do corpo da requisição
-                            especie.id = id
+                            raca.id = id
                             let resultRaca = await racaDAO.updateRaca(raca)
 
                             if(resultRaca){
-                                return message.SUCESS_UPDATED_ITEM//200
+                                return message.SUCCESS_UPDATE_ITEM//200
                             }else{
                                 return message.ERROR_INTERNAL_SERVER_MODEL//500
                             }
                         }else{
-                            return message.ERROR_NOT_FOUND//404
+                            return message.ERROR_NO_FOUND//404
                         }
                     }
                 }
@@ -101,11 +101,11 @@ const excluirRaca = async function(raca){
                 let result = await racaDAO.deleteRaca(id)
 
                 if(result)
-                    return message.SUCCES_DELETE_ITEM//200
+                    return message.SUCCESS_DELETED_ITEM//200
                 else
                     return message.ERROR_INTERNAL_SERVER_MODEL//500
             }else{
-                return message.ERROR_NOT_FOUND//404
+                return message.ERROR_NO_FOUND//404
             }
         }else{
             return message.ERROR_INTERNAL_SERVER_MODEL//500
@@ -137,7 +137,7 @@ const listarRaca = async function(){
                 return dadosRaca
 
             }else{
-                return message.ERROR_NOT_FOUND//404
+                return message.ERROR_NO_FOUND//404
             }
         }else{
             return message.ERROR_INTERNAL_SERVER_MODEL//500
@@ -172,7 +172,7 @@ const buscarRaca = async function(raca) {
 
                     return dadosRaca
                 }else{
-                    return message.ERROR_NOT_FOUND // 404
+                    return message.ERROR_NO_FOUND // 404
                 }
             }else{
                 return message.ERROR_INTERNAL_SERVER_MODEL // 500
