@@ -57,7 +57,7 @@ const insertPet = async function(pet){
 
 
 //ATUALIZAR UM pet EXISTENTE
-const updatepet = async function(pet){
+const updatePet = async function(pet){
     try {
         let sql = `update tbl_pet set       nome = '${pet.nome}',
                                                 data_nascimento = '${pet.data_nascimento}',
@@ -67,7 +67,9 @@ const updatepet = async function(pet){
                                                 id_status = '${pet.id_status}',
                                                 id_raca = '${pet.id_raca}',
                                                 id_sexo = '${pet.id_sexo}',
-                                                
+                                                id_temperamento = '${pet.id_temperamento}',
+                                                id_especie = '${pet.id_especie}',
+                                                id_saude = '${pet.id_saude}'
                                 where id = ${pet.id}`
 
     let resultpet= await prisma.$executeRawUnsafe(sql)
@@ -82,10 +84,10 @@ const updatepet = async function(pet){
 }
 
 //EXCLUIR UM pet EXISTENTE
-const deletepet = async function(id){
+const deletePet = async function(id){
 
     try {
-        let sql = 'delete from tbl_pet where id = ?'
+        let sql = `delete from tbl_pet where id = ${id}`
 
         let result = await prisma.$executeRawUnsafe(sql, id)
     
@@ -100,7 +102,7 @@ const deletepet = async function(id){
 }
 
 //RETORNAR TODOS OS petS EXISTENTES
-const selectAllpets = async function(){
+const selectAllPets = async function(){
 
     try {
         //ScriptSQL para retornar todos os dados
@@ -119,7 +121,7 @@ const selectAllpets = async function(){
 }
 
 //BUSCAR UM pet PELO ID
-const selectByIdpet = async function(id){
+const selectByIdPet = async function(id){
 
     try {
 
@@ -139,11 +141,26 @@ const selectByIdpet = async function(id){
 }
 
 
+const selectLastInsertId = async function(){
+    try {
+        let sql = `select id from tbl_pet order by id desc limit 1`
+
+        let result =  await prisma.$queryRawUnsafe(sql) 
+        if (result) {
+            return result
+        } else {
+            return false
+        }
+    } catch (error) {
+        return false
+    }
+}
+
 module.exports = {
-    insertpet,
-    updatepet,
-    deletepet,
-    selectAllpets,
-    selectByIdpet,
-    loginpet,
+    insertPet,
+    updatePet,
+    deletePet,
+    selectAllPets,
+    selectByIdPet,
+    selectLastInsertId
 }

@@ -145,8 +145,21 @@ const loginUser = async function(user){
         } catch (error) {
             return false
         }
+}
 
+const selectLastInsertId = async function(){
+    try {
+        let sql = `select id from tbl_usuario order by id desc limit 1`
 
+        let result =  await prisma.$queryRawUnsafe(sql) 
+        if (result) {
+            return result
+        } else {
+            return false
+        }
+    } catch (error) {
+        return false
+    }
 }
 
 
@@ -157,4 +170,5 @@ module.exports = {
     selectAllUsers,
     selectByIdUser,
     loginUser,
+    selectLastInsertId
 }

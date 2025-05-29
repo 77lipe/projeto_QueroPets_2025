@@ -11,6 +11,7 @@ const message = require('../../modulo/config.js')
 
 //Import para realizar o CRUD no banco de dados
 const userDAO = require('../../model/DAO/usuario')
+const contatoDAO = require ('../../model/DAO/contato') 
 const controllerEndereco = require('../../controller/Endereco/controllerEndereco.js')
 
 //Função para inserir uma nova ususuario
