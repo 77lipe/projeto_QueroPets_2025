@@ -191,12 +191,12 @@ const buscarComportamentoPet = async function(idPet){
                
                 dadospetComportamento.status = true
                 dadospetComportamento.status_code = 200
-                dadospetComportamento.genero = resultgenero 
+                dadospetComportamento.comportamento = resultgenero 
 
                 return dadospetComportamento // 200
             }else{
            
-                return message.ERROR_NOT_FOUND // 404
+                return message.ERROR_NO_FOUND // 404
             }
         }
 

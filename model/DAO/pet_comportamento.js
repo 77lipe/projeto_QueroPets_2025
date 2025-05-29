@@ -118,37 +118,43 @@
  }
  
  //Função para retornar os filmes pelo genero
- const selectPetComportamento = async function(idAlbum){
-     try {
-         let sql = `select tbl_pet.* from tbl_pet
-                                               inner join tbl_pet_comportamento
-                                                 on tbl_pet.id = tbl_pet_comportamento.id_pet
-                                               inner join tbl_comportamento
-                                                 on tbl_comportamento.id = tbl_pet_comportamento.id_comportamento
-                     where tbl_pet_comportamento.id_comportamento= ${idAlbum}`
-   
-         let result = await prisma.$queryRawUnsafe(sql)
-   
-       if (result)
-           return result
-       else 
-           return false
-     } catch (error) {
-         return false
-     }
-   }
+ const selectPetComportamento = async function(idComportamento){
+    try {
+        let sql = `
+            SELECT tbl_pet.* 
+            FROM tbl_pet
+            INNER JOIN tbl_pet_comportamento
+                ON tbl_pet.id = tbl_pet_comportamento.id_pet
+            WHERE tbl_pet_comportamento.id_comportamento = ${idComportamento}
+        `
+        let result = await prisma.$queryRawUnsafe(sql)
+
+        if (result)
+            return result
+        else 
+            return false
+    } catch (error) {
+        console.error("Erro ao buscar pets por comportamento:", error)
+        return false
+    }
+}
    
    //Função para retornar os generos pelo Filme
-   const selectComportamentoPet = async function(idPet) {
+   const selectComportamentoPet = async function(idPet){
     try {
-        const result = await prisma.$queryRaw`
-            SELECT tbl_comportamento.*
+        let sql = `
+            SELECT tbl_comportamento.* 
             FROM tbl_comportamento
             INNER JOIN tbl_pet_comportamento
                 ON tbl_comportamento.id = tbl_pet_comportamento.id_comportamento
             WHERE tbl_pet_comportamento.id_pet = ${idPet}
         `
-        return result.length > 0 ? result : false
+        let result = await prisma.$queryRawUnsafe(sql)
+
+        if (result)
+            return result
+        else 
+            return false
     } catch (error) {
         console.error("Erro ao buscar comportamentos por pet:", error)
         return false

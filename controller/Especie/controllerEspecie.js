@@ -132,7 +132,7 @@ const listarEspecie = async function(){
                 dadosEspecie.status = true
                 dadosEspecie.status_code = 200,
                 dadosEspecie.items = resultEspecie.length
-                dadosEspecie.species = resultEspecie
+                dadosEspecie.especie = resultEspecie
 
                 return dadosEspecie
 
@@ -168,7 +168,7 @@ const buscarEspecie = async function(especie) {
                     // Cria um JSON para colocar o Array de músicas 
                     dadosEspecie.status = true
                     dadosEspecie.status_code = 200,
-                    dadosEspecie.specie = resultEspecie
+                    dadosEspecie.especie = resultEspecie
 
                     return dadosEspecie
                 }else{

@@ -226,7 +226,7 @@ const listarPet = async function(){
                             delete itempet.id_porte
                         
                             let dadosStatus = await controllerStatus.buscarStatus(itempet.id_status)
-                            itempet.statuss = dadosStatus.statuss
+                            itempet.status = dadosStatus.status
                             delete itempet.id_status
 
                             let dadosRaca = await controllerRaca.buscarRaca(itempet.id_raca)
@@ -245,23 +245,14 @@ const listarPet = async function(){
                             itempet.especie = dadosEspecie.especie
                             delete itempet.id_especie
 
-                            let dadosSaude = await controllerSaude.buscarSaude(itempet.id_saude)
-                            itempet.saude = dadosSaude.saude
-                            delete itempet.id_saude
+                            let dadosaude = await controllerTemperamento.buscarTemperamento(itempet.id_temperamento)
+                            itempet.temperamento = dadosaude.temperamento
+                            delete itempet.id_temperamento
 
                             // fazendo interação com a tbl_pet_genero
                             let dadosComportamento = await controllerpetComportamento.buscarComportamentoPet(itempet.id)
-
-                            // verificando se retorna array e se não é false
-                            if (dadosComportamento && Array.isArray(dadosComportamento.comportamento)) {
-                                console.log(dadosComportamento)
+                            console.log(dadosComportamento)
                             itempet.comportamento = dadosComportamento.comportamento
-                            } else {
-                            //console.log(itempet.generos);
-                            
-                            //se for false retorna um array vazio 
-                            itempet.comportamento = []
-                            }
 
                         arraypets.push(itempet)
      

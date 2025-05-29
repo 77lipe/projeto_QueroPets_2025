@@ -132,7 +132,7 @@ const listarRaca = async function(){
                 dadosRaca.status = true
                 dadosRaca.status_code = 200,
                 dadosRaca.items = resultRaca.length
-                dadosRaca.racas = resultRaca
+                dadosRaca.raca = resultRaca
 
                 return dadosRaca
 
@@ -168,7 +168,7 @@ const buscarRaca = async function(raca) {
                     // Cria um JSON para colocar o Array de músicas 
                     dadosRaca.status = true
                     dadosRaca.status_code = 200,
-                    dadosRaca.specie = resultRaca
+                    dadosRaca.raca = resultRaca
 
                     return dadosRaca
                 }else{

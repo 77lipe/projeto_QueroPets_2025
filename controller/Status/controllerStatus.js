@@ -132,7 +132,7 @@ const listarStatus = async function(){
                 dadosstatus.status = true
                 dadosstatus.status_code = 200,
                 dadosstatus.items = resultstatus.length
-                dadosstatus.Status = resultstatus
+                dadosstatus.status = resultstatus
 
                 return dadosstatus
 
@@ -168,7 +168,7 @@ const buscarStatus = async function(numero) {
                     // Cria um JSON para colocar o Array de músicas 
                     dadosstatus.status = true
                     dadosstatus.status_code = 200,
-                    dadosstatus.Status = resultstatus
+                    dadosstatus.status = resultstatus
 
                     return dadosstatus
                 }else{

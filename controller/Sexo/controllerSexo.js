@@ -132,7 +132,7 @@ const listarSexo = async function(){
                 dadosSexo.status = true
                 dadosSexo.status_code = 200,
                 dadosSexo.items = resultSexo.length
-                dadosSexo.sexs = resultSexo
+                dadosSexo.sexo = resultSexo
 
                 return dadosSexo
 
@@ -168,7 +168,7 @@ const buscarSexo = async function(sexo) {
                     // Cria um JSON para colocar o Array de músicas 
                     dadosSexo.status = true
                     dadosSexo.status_code = 200,
-                    dadosSexo.sex = resultSexo
+                    dadosSexo.sexo = resultSexo
 
                     return dadosSexo
                 }else{
