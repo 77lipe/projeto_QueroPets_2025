@@ -42,6 +42,8 @@ const controllerSexo = require('./controller/Sexo/controllerSexo')
 const controllerRaca = require('./controller/Raca/controllerRaca')
 const controllerComportamento = require('./controller/Comportamento/controllerComportamento')
 const controllerSaude = require('./controller/Saude/controllerSaude')
+const controllerPet = require('./controller/Pet/controllerPet')
+const controllerComportPet = require('./controller/Pet/controllerComportPet')
 
 
 //Cria o objeto app com referencias do express para criar a API 
@@ -132,6 +134,20 @@ app.post('/v1/controle-pet/login', cors(), bodyParserJSON, async function(reques
     response.status(resultusuario.status_code)
     response.json(resultusuario)
 })
+
+app.post('/v1/controle-pet/usuarioContato', cors(), bodyParserJSON, async function(request, response){
+
+    //Recebe o content type da requisição
+    let contentType = request.headers['content-type']
+
+    //Recebe do body da requisição os dados encaminhados
+    let dadosBody = request.body
+    let resultusuario = await controllerUser.inserirUsuarioContato(dadosBody,contentType)
+
+    response.status(resultusuario.status_code)
+    response.json(resultusuario)
+})
+
 
 /************************************************ ENDERECO *************************************************************/
 
@@ -254,6 +270,21 @@ app.put('/v1/controle-pet/contato/:id', cors(), bodyParserJSON, async function (
     response.status(resultContato.status_code)
     response.json(resultContato)
 }) 
+
+app.post('/v1/controle-pet/contatoUsuario', cors(), bodyParserJSON, async function(request, response){
+
+    //Recebe o content type da requisição
+    let contentType = request.headers['content-type']
+
+    //Recebe do body da requisição os dados encaminhados
+    let dadosBody = request.body
+    let resultContato = await controllerContato.criarContatoUltimoUsuario(dadosBody,contentType)
+
+    response.status(resultContato.status_code)
+    response.json(resultContato)
+})
+
+
 
 /************************************************ STATUS *************************************************************/
 
@@ -767,7 +798,136 @@ app.put('/v1/controle-pet/saude/:id', cors(), bodyParserJSON, async function (re
     response.json(resultSaude)
 }) 
 
+/************************************************ PET *************************************************************/
 
+//END-POINT para inserir um pet
+app.post('/v1/controle-pet/pet', cors(), bodyParserJSON, async function(request, response){
+
+    //Recebe o content type da requisição
+    let contentType = request.headers['content-type']
+
+    //Recebe do body da requisição os dados encaminhados
+    let dadosBody = request.body
+    let resultPet= await controllerPet.inserirPet(dadosBody,contentType)
+
+    response.status(resultPet.status_code)
+    response.json(resultPet)
+})
+
+//END-POINT para listar todos os pet
+app.get('/v1/controle-pet/pet', cors(), bodyParserJSON, async function(request, response) {
+    
+    let resultPet = await controllerPet.listarPet()
+
+    response.status(resultPet.status_code)
+    response.json(resultPet)
+})
+
+//END-POINT para buscar um pet por id
+app.get('/v1/controle-pet/pet/:id', cors(), bodyParserJSON, async function (request, response) {
+    
+    let id = request.params.id
+
+    let resultPet = await controllerPet.buscarPet(id)
+    
+    response.status(resultPet.status_code)
+    response.json(resultPet)
+})
+
+//END-POINT  para deletar um pet 
+app.delete('/v1/controle-pet/pet/:id', cors(), async function (request, response) {
+
+    let id = request.params.id 
+  
+    let resultPet = await controllerPet.excluirPet(id)
+  
+    response.status(resultPet.status_code)
+    response.json(resultPet)
+})
+
+//END-POINT para atualizar um pet
+app.put('/v1/controle-pet/pet/:id', cors(), bodyParserJSON, async function (request,response){
+    
+    //Recebe o content-type da requisição
+    let contentType = request.headers['content-type']
+
+    //Recebe o ID da requisição
+    let id = request.params.id
+
+    //Recebe os dados da requisição pelo body
+    let dadosBody = request.body
+
+    let resultPet = await controllerPet.atualizarPet(id, dadosBody, contentType)
+
+    response.status(resultPet.status_code)
+    response.json(resultPet)
+}) 
+
+/************************************************ PET_COMPORTAMENTO *************************************************************/
+
+//END-POINT para inserir um pet
+app.post('/v1/controle-pet/pet-comportamento', cors(), bodyParserJSON, async function(request, response){
+
+    //Recebe o content type da requisição
+    let contentType = request.headers['content-type']
+
+    //Recebe do body da requisição os dados encaminhados
+    let dadosBody = request.body
+    let resultPet= await controllerComportPet.inserirPetComportamento(dadosBody,contentType)
+
+    response.status(resultPet.status_code)
+    response.json(resultPet)
+})
+
+//END-POINT para listar todos os pet
+app.get('/v1/controle-pet/pet-comportamento', cors(), bodyParserJSON, async function(request, response) {
+    
+    let resultPet = await controllerComportPet.listarPetComportamento()
+
+    response.status(resultPet.status_code)
+    response.json(resultPet)
+})
+
+//END-POINT para buscar um pet por id
+app.get('/v1/controle-pet/pet-comportamento/:id', cors(), bodyParserJSON, async function (request, response) {
+    
+    let id = request.params.id
+
+    let resultPet = await controllerComportPet.buscarComportamentoPet(id)
+    
+    response.status(resultPet.status_code)
+    response.json(resultPet)
+})
+
+//END-POINT  para deletar um pet 
+app.delete('/v1/controle-pet/pet-comportamento/:id', cors(), async function (request, response) {
+
+    let id = request.params.id 
+  
+    let resultPet = await controllerComportPet.excluirpetComportamento(id)
+    console.log(resultPet)
+  
+    response.status(resultPet.status_code)
+    response.json(resultPet)
+})
+
+//END-POINT para atualizar um pet
+app.put('/v1/controle-pet/pet-comportamento/:id', cors(), bodyParserJSON, async function (request,response){
+    
+    //Recebe o content-type da requisição
+    let contentType = request.headers['content-type']
+
+    //Recebe o ID da requisição
+    let id = request.params.id
+
+    //Recebe os dados da requisição pelo body
+    let dadosBody = request.body
+
+    let resultPet = await controllerComportPet.atualizarpetComportamento(id, dadosBody, contentType)
+
+    response.status(resultPet.status_code)
+    response.json(resultPet)
+}) 
 
 app.listen('8080', function(){
     console.log('API funcionando e aguardando requisições...')

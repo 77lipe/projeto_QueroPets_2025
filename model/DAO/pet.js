@@ -63,7 +63,7 @@ const updatePet = async function(pet){
                                                 data_nascimento = '${pet.data_nascimento}',
                                                 foto = '${pet.foto}',
                                                 necessidades = '${pet.necessidades}',
-                                                data_nascimento = '${pet.id_porte}',
+                                                id_porte = '${pet.id_porte}',
                                                 id_status = '${pet.id_status}',
                                                 id_raca = '${pet.id_raca}',
                                                 id_sexo = '${pet.id_sexo}',
@@ -85,11 +85,10 @@ const updatePet = async function(pet){
 
 //EXCLUIR UM pet EXISTENTE
 const deletePet = async function(id){
-
     try {
         let sql = `delete from tbl_pet where id = ${id}`
 
-        let result = await prisma.$executeRawUnsafe(sql, id)
+        let result = await prisma.$executeRawUnsafe(sql)
     
         if (result){
             return true 

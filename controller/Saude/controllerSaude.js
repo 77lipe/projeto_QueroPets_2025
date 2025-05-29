@@ -118,21 +118,23 @@ const excluirSaude = async function(numero){
 }
 
 //Função para retornar uma lista de músicas
+//Função para retornar uma lista de músicas
 const listarSaude = async function(){
     try {
+
         //Criando um Objeto JSON
         let dadossaude = {}
 
-        //Chama a função para retornar as saudes do banco de dados
-        let resultsaude = await saudeDAO.selectAllSaude()
+        //Chama a função para retornar as artistas do banco de dados
+        let resultSaude = await saudeDAO.selectAllSaude()
 
-        if(resultsaude != false){
-            if(resultsaude.length > 0){
-                //Cria um JSON para colocar o ARRAY de saudes
-                dadossaude.saude = true
-                dadossaude.saude_code = 200,
-                dadossaude.items = resultsaude.length
-                dadossaude.saude = resultsaude
+        if(resultSaude != false){
+            if(resultSaude.length > 0){
+                //Cria um JSON para colocar o ARRAY de artistas
+                dadossaude.status = true
+                dadossaude.status_code = 200,
+                dadossaude.items = resultSaude.length
+                dadossaude.saude = resultSaude
 
                 return dadossaude
 
@@ -155,22 +157,23 @@ const buscarSaude = async function(numero) {
         let id = numero
 
         // Objeto JSON
-        let dadossaude = {}
+        let dadosaude = {}
 
         if ( id == ''|| id == null || id == undefined || isNaN(id)){
-            return message.ERROR_REQUIRED_FIELDS // saude code 400
+            return message.ERROR_REQUIRED_FIELDS // status code 400
         }else{
             // Chama a função para retornar as músicas do banco de dados
-            let resultsaude = await saudeDAO.selectByIdSaude(id)
+            let resultSaude = await saudeDAO.selectByIdSaude(id)
 
-            if(resultsaude != false || typeof(resultsaude) == 'object'){
-                if(resultsaude.length > 0){
+            if(resultSaude != false || typeof(resultSaude) == 'object'){
+                if(resultSaude.length > 0){
                     // Cria um JSON para colocar o Array de músicas 
-                    dadossaude.saude = true
-                    dadossaude.saude_code = 200,
-                    dadossaude.saude = resultsaude
-
-                    return dadossaude
+                    dadosaude.status = true
+                    dadosaude.status_code = 200
+                    dadosaude.saude = resultSaude
+    
+                    return dadosporte
+    
                 }else{
                     return message.ERROR_NO_FOUND // 404
                 }
@@ -183,6 +186,7 @@ const buscarSaude = async function(numero) {
         return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500
     }
 }
+
 
 module.exports = {
     inserirSaude,

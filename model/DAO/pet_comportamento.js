@@ -21,10 +21,8 @@
                                      values 
                                          ( 
                                          ${petComportamneto.id_pet},
-                                         ${petComportamneto.id_comportamento}
+                                         ${petComportamneto.id_Comportamento}
                                          )`
- 
-         
          
          //Await só vai funcionar se na função estiver com o async
          //Executa um script sql no banco de dados, e aguarda o resultado (retornando um true or false)
@@ -63,7 +61,7 @@
  const deletePetComportamento = async function(id){
      try {
  
-         let sql = `delete from tbl_pet_comportamento where id=${id}`
+         let sql = `delete from tbl_pet_comportamento where id_pet =${id}`
  
          //
          let result = await prisma.$executeRawUnsafe(sql)
@@ -122,12 +120,12 @@
  //Função para retornar os filmes pelo genero
  const selectPetComportamento = async function(idAlbum){
      try {
-         let sql = `select tbl_pet.* from tbl_album
+         let sql = `select tbl_pet.* from tbl_pet
                                                inner join tbl_pet_comportamento
-                                                 on tbl_album.id = tbl_pet_comportamento.id_comportamento
-                                               inner join tbl_artista
-                                                 on tbl_artista.id = tbl_pet_comportamento.id_pet
-                     where tbl_pet_comportamento.id_pet = ${idAlbum}`
+                                                 on tbl_pet.id = tbl_pet_comportamento.id_pet
+                                               inner join tbl_comportamento
+                                                 on tbl_comportamento.id = tbl_pet_comportamento.id_comportamento
+                     where tbl_pet_comportamento.id_comportamento= ${idAlbum}`
    
          let result = await prisma.$queryRawUnsafe(sql)
    
@@ -141,25 +139,21 @@
    }
    
    //Função para retornar os generos pelo Filme
-   const selectComportamentoPet = async function(idArtista){
-     try {
-         let sql = `select tbl_comportamento.* from tbl_album
-                                               inner join tbl_pet_comportamento
-                                                 on tbl_album.id = tbl_pet_comportamento.id_comportamento
-                                               inner join tbl_artista
-                                                 on tbl_artista.id = tbl_pet_comportamento.id_pet
-                     where tbl_pet_comportamento.id_comportamento = ${idArtista}`
-   
-         let result = await prisma.$queryRawUnsafe(sql)
-   
-       if (result)
-           return result
-       else 
-           return false
-     } catch (error) {
-         return false
-     }
-   }
+   const selectComportamentoPet = async function(idPet) {
+    try {
+        const result = await prisma.$queryRaw`
+            SELECT tbl_comportamento.*
+            FROM tbl_comportamento
+            INNER JOIN tbl_pet_comportamento
+                ON tbl_comportamento.id = tbl_pet_comportamento.id_comportamento
+            WHERE tbl_pet_comportamento.id_pet = ${idPet}
+        `
+        return result.length > 0 ? result : false
+    } catch (error) {
+        console.error("Erro ao buscar comportamentos por pet:", error)
+        return false
+    }
+}
  
  
  module.exports = {

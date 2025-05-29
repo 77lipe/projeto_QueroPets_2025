@@ -39,6 +39,9 @@ const insertContato = async function(contato){
 }
 
 
+
+
+
 //ATUALIZAR UM contato EXISTENTE
 const updateContato = async function(contato){
     try {

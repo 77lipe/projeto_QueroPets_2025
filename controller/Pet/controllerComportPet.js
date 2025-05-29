@@ -84,19 +84,20 @@ const atualizarpetComportamento = async function(id, petComportamento, contentTy
 
 //Função para tratar a exclusão de um genero no DAO
 const excluirpetComportamento = async function(id){
+    console.log()
     try {
         if(id == '' || id == undefined || id == null || isNaN(id) || id <=0){
             return message.ERROR_REQUIRED_FIELDS //400
         }else{
 
             //Função que verifica se  ID existe no BD
-            let resultpetComportamento = await petComportamentoDAO.selectByIdpetComportamento(parseInt(id))
+            let resultpetComportamento = await petComportamentoDAO.selectByIdPetComportamento(parseInt(id))
 
             if(resultpetComportamento != false || typeof(resultpetComportamento) == 'object'){
                 //Se existir, faremos o delete
                 if(resultpetComportamento.length > 0){
                     //delete
-                    let result = await petComportamentoDAO.deletepetComportamento(parseInt(id))
+                    let result = await petComportamentoDAO.deletePetComportamento(parseInt(id))
 
                     if(result){
                         return message.SUCCESS_DELETED_ITEM //200
