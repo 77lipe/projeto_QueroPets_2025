@@ -233,7 +233,7 @@ const listarPet = async function(){
                             itempet.raca = dadosRaca.raca
                             delete itempet.id_raca
 
-                            let dadosSexo = await controllerSexo.buscarSexo(itempet.id_raca)
+                            let dadosSexo = await controllerSexo.buscarSexo(itempet.id_sexo)
                             itempet.sexo = dadosSexo.sexo
                             delete itempet.id_sexo
 
@@ -245,9 +245,9 @@ const listarPet = async function(){
                             itempet.especie = dadosEspecie.especie
                             delete itempet.id_especie
 
-                            let dadosaude = await controllerTemperamento.buscarTemperamento(itempet.id_temperamento)
-                            itempet.temperamento = dadosaude.temperamento
-                            delete itempet.id_temperamento
+                            let dadosSaude = await controllerSaude.buscarSaude(itempet.id_saude)
+                            itempet.saude = dadosSaude.saude
+                            delete itempet.id_saude
 
                             // fazendo interação com a tbl_pet_genero
                             let dadosComportamento = await controllerpetComportamento.buscarComportamentoPet(itempet.id)
@@ -306,14 +306,14 @@ const buscarPet = async function(id){
                             delete itempet.id_porte
                         
                             let dadosStatus = await controllerStatus.buscarStatus(itempet.id_status)
-                            itempet.statuss = dadosStatus.statuss
+                            itempet.status = dadosStatus.status
                             delete itempet.id_status
 
                             let dadosRaca = await controllerRaca.buscarRaca(itempet.id_raca)
                             itempet.raca = dadosRaca.raca
                             delete itempet.id_raca
 
-                            let dadosSexo = await controllerSexo.buscarSexo(itempet.id_raca)
+                            let dadosSexo = await controllerSexo.buscarSexo(itempet.id_sexo)
                             itempet.sexo = dadosSexo.sexo
                             delete itempet.id_sexo
 
@@ -331,22 +331,14 @@ const buscarPet = async function(id){
 
                             // fazendo interação com a tbl_pet_genero
                             let dadosComportamento = await controllerpetComportamento.buscarComportamentoPet(itempet.id)
-
-                            // verificando se retorna array e se não é false
-                            if (dadosComportamento && Array.isArray(dadosComportamento.comportamento)) {
+                           
                             itempet.comportamento = dadosComportamento.comportamento
-                            } else {
-                            //console.log(itempet.generos);
-                            
-                            //se for false retorna um array vazio 
-                            itempet.comportamento = []
-                            }
 
                         arraypets.push(itempet)
      
                     }
                     dadospet.pets = arraypets
-    
+
                     return dadospet
                 }else{
                     return message.ERROR_NO_FOUND //404

@@ -172,7 +172,7 @@ const buscarSaude = async function(numero) {
                     dadosaude.status_code = 200
                     dadosaude.saude = resultSaude
     
-                    return dadosporte
+                    return dadosaude
     
                 }else{
                     return message.ERROR_NO_FOUND // 404
