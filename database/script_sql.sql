@@ -82,7 +82,6 @@ create table tbl_pet(
     foto varchar(200) not null,
     necessidades varchar(200) not null,
     id_porte int,
-    id_status int,
     id_raca int,
     id_sexo int ,
     id_temperamento int,
@@ -92,10 +91,6 @@ create table tbl_pet(
      constraint FK_PET_PORTE
     foreign key (id_porte)
     references tbl_porte(id),
-    
-    constraint FK_PET_STATUS
-    foreign key (id_status)
-    references tbl_status(id),
     
     constraint FK_PET_RACA
     foreign key (id_raca)

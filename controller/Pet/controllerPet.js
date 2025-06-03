@@ -33,8 +33,7 @@ const inserirPet = async function(pet, contentType){
                 pet.data_nascimento   == '' || pet.data_nascimento   == undefined || pet.data_nascimento   == null || pet.data_nascimento.length         > 10  ||
                 pet.foto              == '' || pet.foto              == undefined || pet.foto              == null || pet.foto.length                    > 100 ||
                 pet.necessidades      == '' || pet.necessidades      == undefined || pet.necessidades      == null || pet.necessidades.length            > 200 ||
-                pet.id_porte          == '' || pet.id_porte          == undefined || pet.id_porte          == null || isNaN(pet.id_porte)                      || pet.id_porte         <= 0    || 
-                pet.id_status         == '' || pet.id_status         == undefined || pet.id_status         == null || isNaN(pet.id_status)                     || pet.id_status        <= 0    || 
+                pet.id_porte          == '' || pet.id_porte          == undefined || pet.id_porte          == null || isNaN(pet.id_porte)                      || pet.id_porte         <= 0    ||  
                 pet.id_raca           == '' || pet.id_raca           == undefined || pet.id_raca           == null || isNaN(pet.id_raca)                       || pet.id_raca          <= 0    ||
                 pet.id_sexo           == '' || pet.id_sexo           == undefined || pet.id_sexo           == null || isNaN(pet.id_sexo)                       || pet.id_sexo          <= 0    ||
                 pet.id_temperamento   == '' || pet.id_temperamento   == undefined || pet.id_temperamento   == null || isNaN(pet.id_temperamento)               || pet.id_temperamento  <= 0    ||
@@ -52,28 +51,32 @@ const inserirPet = async function(pet, contentType){
        
                 // associando generos
                 // verificando se o pet foi inserido no banco
-               if (resultpet) {
+                if (resultpet) {
                
-                //verificando se tem algum campo chamado "genero" para ser add e se esse campo retorna um array
-                if (pet.comportamento && Array.isArray(pet.comportamento)) {
-                    // Obtém o ID do pet inserido
-                    let petInserido = await petDAO.selectLastInsertId()
-                    //acessa a propriedade id dentro do objeto retornado
-                    let idpet = petInserido[0].id
-                    
-                    // Para cada gênero no array do body, cria uma variavel comportamento na lista de pet 
-                    for (let comportamento of pet.comportamento) {
-                        // verifica se o campo "comportamento" possui um atributo id e se é int
-                        if (comportamento.comportamento && !isNaN(comportamento.id)) {
-                            // adicionando os ids na tbl_pet_Comportamento
-                            let petComportamento = {
-                                id_pet: idpet,
-                                id_Comportamento: comportamento.comportamento
+                    //verificando se tem algum campo chamado "genero" para ser add e se esse campo retorna um array
+                    if (pet.comportamento && Array.isArray(pet.comportamento)) {
+                        // Obtém o ID do pet inserido
+                        let petInserido = await petDAO.selectLastInsertId()
+                        //acessa a propriedade id dentro do objeto retornado
+                        let idpet = petInserido[0].id
+                        
+                        // Para cada gênero no array do body, cria uma variavel comportamento na lista de pet 
+                        for (let comportamento of pet.comportamento) {
+                            // verifica se o campo "comportamento" possui um atributo id e se é int
+                            if (comportamento.comportamento && !isNaN(comportamento.comportamento)) {
+                                // adicionando os ids na tbl_pet_Comportamento
+                                let petComportamento = {
+                                    id_pet: idpet,
+                                    id_comportamento: comportamento.comportamento
+                                }
+                                console.log(petComportamento)
+                                await petComportamentoDAO.insertPetComportamento(petComportamento);
                             }
-                            await petComportamentoDAO.insertPetComportamento(petComportamento);
                         }
                     }
-                }
+
+                let dadosArray = {} 
+
                    return{
                     ...message.SUCCESS_CREATED_ITEM, //201
                     data: resultpet
@@ -107,8 +110,7 @@ const atualizarPet = async function(id, pet, contentType){
                 pet.data_nascimento   == ''  || pet.data_nascimento   == undefined || pet.data_nascimento   == null || pet.data_nascimento.length           > 10||
                 pet.foto              == ''  || pet.foto              == undefined || pet.foto              == null || pet.foto.length                     >100 ||
                 pet.necessidades       == '' || pet.necessidades      == undefined || pet.necessidades      == null || pet.necessidades.length             > 200 ||
-                pet.id_porte          == ''  || pet.id_porte          == undefined || pet.id_porte          == null || isNaN(pet.id_porte)                      || pet.id_porte         <= 0    || 
-                pet.id_status         == ''  || pet.id_status         == undefined || pet.id_status         == null || isNaN(pet.id_status)                     || pet.id_status        <= 0    || 
+                pet.id_porte          == ''  || pet.id_porte          == undefined || pet.id_porte          == null || isNaN(pet.id_porte)                      || pet.id_porte         <= 0    ||
                 pet.id_raca           == ''  || pet.id_raca           == undefined || pet.id_raca           == null || isNaN(pet.id_raca)                       || pet.id_raca          <= 0    ||
                 pet.id_sexo           == ''  || pet.id_sexo           == undefined || pet.id_sexo           == null || isNaN(pet.id_sexo)                       || pet.id_sexo          <= 0    ||
                 pet.id_temperamento   == ''  || pet.id_temperamento   == undefined || pet.id_temperamento   == null || isNaN(pet.id_temperamento)               || pet.id_temperamento  <= 0    ||

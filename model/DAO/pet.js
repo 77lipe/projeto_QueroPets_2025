@@ -21,7 +21,6 @@ const insertPet = async function(pet){
                                                 foto,
                                                 necessidades,
                                                 id_porte,
-                                                id_status,
                                                 id_raca,
                                                 id_sexo,
                                                 id_temperamento,
@@ -34,7 +33,6 @@ const insertPet = async function(pet){
                                                 '${pet.foto}',
                                                 '${pet.necessidades}',
                                                 '${pet.id_porte}',
-                                                '${pet.id_status}',
                                                 '${pet.id_raca}',
                                                 '${pet.id_sexo}',
                                                 '${pet.id_temperamento}',
@@ -45,8 +43,10 @@ const insertPet = async function(pet){
             // Executa o scriptSQL no BD e aguarda o retorno no mesmo para saber se deu certo
             let result = await prisma.$executeRawUnsafe(sql)
             
+            
             if(result){
-                let getID = `SELECT * FROM tbl_pet WHERE nome = '${user.nome}' ORDER BY id DESC LIMIT 1 `
+                let getID = `SELECT * FROM tbl_pet WHERE nome = '${pet.nome}' ORDER BY id DESC LIMIT 1 `
+
                
 
                 let idPego = await prisma.$queryRawUnsafe(getID)
@@ -70,7 +70,6 @@ const updatePet = async function(pet){
                                                 foto = '${pet.foto}',
                                                 necessidades = '${pet.necessidades}',
                                                 id_porte = '${pet.id_porte}',
-                                                id_status = '${pet.id_status}',
                                                 id_raca = '${pet.id_raca}',
                                                 id_sexo = '${pet.id_sexo}',
                                                 id_temperamento = '${pet.id_temperamento}',
