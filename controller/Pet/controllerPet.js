@@ -64,11 +64,11 @@ const inserirPet = async function(pet, contentType){
                     // Para cada gênero no array do body, cria uma variavel comportamento na lista de pet 
                     for (let comportamento of pet.comportamento) {
                         // verifica se o campo "comportamento" possui um atributo id e se é int
-                        if (comportamento.id && !isNaN(comportamento.id)) {
+                        if (comportamento.comportamento && !isNaN(comportamento.id)) {
                             // adicionando os ids na tbl_pet_Comportamento
                             let petComportamento = {
                                 id_pet: idpet,
-                                id_Comportamento: comportamento.id
+                                id_Comportamento: comportamento.comportamento
                             }
                             await petComportamentoDAO.insertPetComportamento(petComportamento);
                         }

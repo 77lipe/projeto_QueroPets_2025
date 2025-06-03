@@ -12,7 +12,7 @@
  const prisma = new PrismaClient()
  
  //Função para inserir uma nova petComportamneto
- const insertPetComportamento = async function(petComportamneto){
+ const insertPetComportamento = async function(petComportamento){
      try{
          let sql  = `insert into tbl_pet_comportamento (
                                          id_pet,
@@ -20,8 +20,8 @@
                                          ) 
                                      values 
                                          ( 
-                                         ${petComportamneto.id_pet},
-                                         ${petComportamneto.id_Comportamento}
+                                         ${petComportamento.id_pet},
+                                         ${petComportamento.id_comportamento}
                                          )`
          
          //Await só vai funcionar se na função estiver com o async
