@@ -69,18 +69,18 @@ const inserirPet = async function(pet, contentType){
                                     id_pet: idpet,
                                     id_comportamento: comportamento.comportamento
                                 }
-                                console.log(petComportamento)
+                                //console.log(petComportamento)
                                 await petComportamentoDAO.insertPetComportamento(petComportamento);
                             }
                         }
                     }
 
-                let dadosArray = {} 
-
-                   return{
-                    ...message.SUCCESS_CREATED_ITEM, //201
-                    data: resultpet
-                   } 
+                
+                 
+                    return {
+                        ...message.SUCCESS_CREATED_ITEM, // 201
+                        data: resultpet
+                    }
                }else{
                    return message.ERROR_INTERNAL_SERVER_MODEL //500
                     }
@@ -95,8 +95,7 @@ const inserirPet = async function(pet, contentType){
         
         return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500
     }
-    
-        
+         
 }
 
 // função para tratar a atualização de um pet no DAO
