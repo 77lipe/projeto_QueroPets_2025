@@ -5,7 +5,10 @@ use db_queropet;
 create table tbl_endereco(
 	id int not null primary key auto_increment,
     estado varchar(24) not null,
-    cep varchar(12)
+    cep varchar(12),
+    logradouro varchar (100),
+    bairro varchar (100),
+    uf varchar(5)
 );
 
 create table tbl_usuario(
@@ -91,6 +94,7 @@ create table tbl_pet(
      constraint FK_PET_PORTE
     foreign key (id_porte)
     references tbl_porte(id),
+    
     
     constraint FK_PET_RACA
     foreign key (id_raca)

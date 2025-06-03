@@ -228,10 +228,6 @@ const listarPet = async function(){
                             itempet.porte = dadosporte.porte
                             //Remover o id do JSON
                             delete itempet.id_porte
-                        
-                            let dadosStatus = await controllerStatus.buscarStatus(itempet.id_status)
-                            itempet.status = dadosStatus.status
-                            delete itempet.id_status
 
                             let dadosRaca = await controllerRaca.buscarRaca(itempet.id_raca)
                             itempet.raca = dadosRaca.raca
