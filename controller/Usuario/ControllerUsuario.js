@@ -11,7 +11,6 @@ const message = require('../../modulo/config.js')
 
 //Import para realizar o CRUD no banco de dados
 const userDAO = require('../../model/DAO/usuario')
-const contatoDAO = require ('../../model/DAO/contato') 
 const controllerEndereco = require('../../controller/Endereco/controllerEndereco.js')
 
 //Função para inserir uma nova ususuario
@@ -24,6 +23,7 @@ const inserirUsuario = async function(user, contentType){
             user.nome            == '' || user.nome            == null || user.nome            == undefined || user.nome.length             > 100 ||
             user.email           == '' || user.email           == null || user.email           == undefined || user.email.length            > 100 ||
             user.senha           == '' || user.senha           == null || user.senha           == undefined || user.senha.length            > 100 ||
+            user.telefone        == '' || user.telefone        == null || user.telefone        == undefined || user.telefone.length         > 100 ||
             user.palavra_chave   == '' || user.palavra_chave   == null || user.palavra_chave   == undefined || user.palavra_chave.length    > 100 || 
             user.data_nascimento == '' || user.data_nascimento == null || user.data_nascimento == undefined || user.data_nascimento.length  > 10  || 
             user.cpf             == '' || user.cpf             == null || user.cpf             == undefined || user.cpf.length              > 12  ||
@@ -34,8 +34,13 @@ const inserirUsuario = async function(user, contentType){
                 //encaminhando os dados da user para o DAO realizar o insert no Banco de dados
                 let resultuser = await userDAO.insertUser(user)
 
+                
+
                 if(resultuser){
-                    return message.SUCCESS_CREATED_ITEM // 201
+                    return{
+                        ...message.SUCCESS_CREATED_ITEM, // 201
+                        data: resultuser 
+                    } 
                 }else{
                     return message.ERROR_INTERNAL_SERVER_MODEL//500
                 }
@@ -47,81 +52,22 @@ const inserirUsuario = async function(user, contentType){
         return message.ERROR_INTERNAL_SERVER_CONTROLLER//500
     }
 }
-
-const inserirUsuarioContato = async function(user, contentType){
-
-    // const user = body.usuario
-    // const contato = body.contato.telefone
-   
-
-    try {
-
-
-        if(String(contentType).toLocaleLowerCase() == 'application/json' )
-         { 
-            if(
-            user.nome            == '' || user.nome            == null || user.nome            == undefined || user.nome.length             > 100 ||
-            user.email           == '' || user.email           == null || user.email           == undefined || user.email.length            > 100 ||
-            user.senha           == '' || user.senha           == null || user.senha           == undefined || user.senha.length            > 100 ||
-            user.palavra_chave   == '' || user.palavra_chave   == null || user.palavra_chave   == undefined || user.palavra_chave.length    > 100 || 
-            user.data_nascimento == '' || user.data_nascimento == null || user.data_nascimento == undefined || user.data_nascimento.length  > 10  || 
-            user.cpf             == '' || user.cpf             == null || user.cpf             == undefined || user.cpf.length              > 12  ||
-            user.id_endereco     == '' || user.id_endereco     == null || user.id_endereco     == undefined || isNaN(user.id_endereco)    
-            ){
-                return message.ERROR_REQUIRED_FIELDS//status code 400
-         }else{
-                //encaminhando os dados da user para o DAO realizar o insert no Banco de dados
-                let resultuser = await userDAO.insertUser(user)
-
-                if(resultuser){
-                    if (user.contato && Array.isArray(pet.contato)) {
-                        // Obtém o ID do pet inserido
-                        let userInserido = await userDAO.selectLastInsertId()
-                        //acessa a propriedade id dentro do objeto retornado
-                        let iduser = userInserido[0].id
-                        
-                        // Para cada gênero no array do body, cria uma variavel comportamento na lista de pet 
-                        for (let contato of user.contato) {
-                            // verifica se o campo "comportamento" possui um atributo id e se é int
-                            if (contato.id && !isNaN(contato.id)) {
-                                // adicionando os ids na tbl_pet_Comportamento
-                                let userContato = {
-                                    telefone: user.contato,
-                                    is_usuario: iduser
-                                }
-                                await contatoDAO.insertContato(userContato);
-                            }
-                        }
-                    }
-
-                    return message.SUCCESS_CREATED_ITEM // 201
-                }else{
-                    return message.ERROR_INTERNAL_SERVER_MODEL//500
-                }
-            }
-        }else{
-            return message.ERROR_CONTENT_TYPE//415
-        }
-    } catch (error) {
-        return message.ERROR_INTERNAL_SERVER_CONTROLLER//500
-    }
-}
-
 
 //Função para atualizar uma user existente
 const atualizarUsuario = async function(id, user, contentType){
     try {
         if(String(contentType).toLocaleLowerCase() == 'application/json' )
             { 
-               if(
+              if(
                 user.nome            == '' || user.nome            == null || user.nome            == undefined || user.nome.length             > 100 ||
                 user.email           == '' || user.email           == null || user.email           == undefined || user.email.length            > 100 ||
                 user.senha           == '' || user.senha           == null || user.senha           == undefined || user.senha.length            > 100 ||
+                user.telefone        == '' || user.telefone        == null || user.telefone        == undefined || user.telefone.length         > 15 ||
                 user.palavra_chave   == '' || user.palavra_chave   == null || user.palavra_chave   == undefined || user.palavra_chave.length    > 100 || 
                 user.data_nascimento == '' || user.data_nascimento == null || user.data_nascimento == undefined || user.data_nascimento.length  > 10  || 
                 user.cpf             == '' || user.cpf             == null || user.cpf             == undefined || user.cpf.length              > 12  ||
-                user.id_endereco     == '' || user.id_endereco     == null || user.id_endereco     == undefined || isNaN(user.id_endereco)   
-               )
+                user.id_endereco     == '' || user.id_endereco     == null || user.id_endereco     == undefined || isNaN(user.id_endereco)    
+            )
                 {
                    return message.ERROR_REQUIRED_FIELDS//status code 400
                 }else{
@@ -332,6 +278,4 @@ module.exports = {
     listarUsuario,
     buscarUsuario,
     loginUsuario,
-    inserirUsuarioContato
-   
 }

@@ -74,7 +74,10 @@ const inserirPet = async function(pet, contentType){
                         }
                     }
                 }
-                   return message.SUCCESS_CREATED_ITEM //201
+                   return{
+                    ...message.SUCCESS_CREATED_ITEM, //201
+                    data: resultpet
+                   } 
                }else{
                    return message.ERROR_INTERNAL_SERVER_MODEL //500
                     }

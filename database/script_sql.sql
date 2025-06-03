@@ -13,6 +13,7 @@ create table tbl_usuario(
     nome varchar(100) not null,
     email varchar(100) not null,
     senha varchar(100) not null,
+	telefone varchar(15) not null,
     palavra_chave varchar(100) not null,
     data_nascimento date not null,
     cpf varchar(11) not null,

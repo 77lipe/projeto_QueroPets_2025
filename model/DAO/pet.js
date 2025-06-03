@@ -45,10 +45,16 @@ const insertPet = async function(pet){
             // Executa o scriptSQL no BD e aguarda o retorno no mesmo para saber se deu certo
             let result = await prisma.$executeRawUnsafe(sql)
             
-        if(result)
-            return true
-        else
-            return false
+            if(result){
+                let getID = `SELECT * FROM tbl_pet WHERE nome = '${user.nome}' ORDER BY id DESC LIMIT 1 `
+               
+
+                let idPego = await prisma.$queryRawUnsafe(getID)
+                
+                return idPego[0]
+            }else{
+                return false
+            }
         
     } catch (error) {
         return false
