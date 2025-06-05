@@ -25,8 +25,7 @@ const insertPet = async function(pet){
                                                 id_raca,
                                                 id_sexo,
                                                 id_temperamento,
-                                                id_especie,
-                                                id_saude
+                                                id_especie
                                             )
                                             values(
                                                 '${pet.nome}',
@@ -38,8 +37,7 @@ const insertPet = async function(pet){
                                                 '${pet.id_raca}',
                                                 '${pet.id_sexo}',
                                                 '${pet.id_temperamento}',
-                                                '${pet.id_especie}',
-                                                '${pet.id_saude}'
+                                                '${pet.id_especie}'
                                                
                                             )`
 
@@ -78,7 +76,6 @@ const updatePet = async function(pet){
                                                 id_sexo = '${pet.id_sexo}',
                                                 id_temperamento = '${pet.id_temperamento}',
                                                 id_especie = '${pet.id_especie}',
-                                                id_saude = '${pet.id_saude}',
                                                 id_endereco = '${pet.id_endereco}'
                                 where id = ${pet.id}`
 

@@ -77,6 +77,8 @@ create table tbl_saude(
     saude varchar(100) not null
 );
 
+
+
 create table tbl_pet(
 	id int not null primary key auto_increment,
     nome varchar(100) not null,
@@ -88,7 +90,6 @@ create table tbl_pet(
     id_sexo int ,
     id_temperamento int,
     id_especie int,
-    id_saude int,
     
      constraint FK_PET_PORTE
     foreign key (id_porte)
@@ -110,12 +111,22 @@ create table tbl_pet(
 	constraint FK_PET_ESPECIE
     foreign key (id_especie)
     references tbl_especie(id),
-
-    constraint FK_PET_SAUDE
-    foreign key (id_saude)
-    references tbl_saude(id)
     
 );
+
+create table tbl_pet_saude(
+    id int not null primary key auto_increment,
+    id_pet int,
+    id_saude int,
+
+    constraint FK_PET_SAUDE
+    foreign key (id_pet)
+    references tbl_pet(id),
+    
+    constraint FK_SAUDE_PET
+    foreign key (id_saude)
+    references tbl_saude(id)
+)
 
 create table tbl_pet_comportamento(
 	id int not null primary key auto_increment,
