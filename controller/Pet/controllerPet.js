@@ -20,6 +20,7 @@ const controllerTemperamento = require('../Temperamento/controllerTemperamento.j
 const controllerEspecie = require('../Especie/controllerEspecie.js')
 const controllerSaude = require('../Saude/controllerSaude.js')
 const controllerpetComportamento = require('../Pet/controllerComportPet.js')
+const controllerEndereco = require('../Endereco/controllerEndereco.js')
 
 // função para tratar a inserção de um novo pet no DAO
 const inserirPet = async function(pet, contentType){
@@ -38,7 +39,8 @@ const inserirPet = async function(pet, contentType){
                 pet.id_sexo           == '' || pet.id_sexo           == undefined || pet.id_sexo           == null || isNaN(pet.id_sexo)                       || pet.id_sexo          <= 0    ||
                 pet.id_temperamento   == '' || pet.id_temperamento   == undefined || pet.id_temperamento   == null || isNaN(pet.id_temperamento)               || pet.id_temperamento  <= 0    ||
                 pet.id_especie        == '' || pet.id_especie        == undefined || pet.id_especie        == null || isNaN(pet.id_especie)                    || pet.id_especie       <= 0    ||
-                pet.id_saude          == '' || pet.id_saude          == undefined || pet.id_saude          == null || isNaN(pet.id_saude)                      || pet.id_saude         <= 0   
+                pet.id_saude          == '' || pet.id_saude          == undefined || pet.id_saude          == null || isNaN(pet.id_saude)                      || pet.id_saude         <= 0    ||
+                pet.id_endereco       == '' || pet.id_endereco       == undefined || pet.id_endereco       == null || isNaN(pet.id_endereco)                   || pet.id_endereco      <= 0 
                )
        
            {
@@ -106,15 +108,16 @@ const atualizarPet = async function(id, pet, contentType){
         if(String(contentType).toLowerCase() == 'application/json'){
             if ( 
                 pet.nome              == ''  || pet.nome              == undefined || pet.nome              == null || pet.nome.length                    > 100 ||
-                pet.data_nascimento   == ''  || pet.data_nascimento   == undefined || pet.data_nascimento   == null || pet.data_nascimento.length           > 10||
-                pet.foto              == ''  || pet.foto              == undefined || pet.foto              == null || pet.foto.length                     >100 ||
-                pet.necessidades       == '' || pet.necessidades      == undefined || pet.necessidades      == null || pet.necessidades.length             > 200 ||
+                pet.data_nascimento   == ''  || pet.data_nascimento   == undefined || pet.data_nascimento   == null || pet.data_nascimento.length         > 10  ||
+                pet.foto              == ''  || pet.foto              == undefined || pet.foto              == null || pet.foto.length                    > 100 ||
+                pet.necessidades      == ''  || pet.necessidades      == undefined || pet.necessidades      == null || pet.necessidades.length            > 200 ||
                 pet.id_porte          == ''  || pet.id_porte          == undefined || pet.id_porte          == null || isNaN(pet.id_porte)                      || pet.id_porte         <= 0    ||
                 pet.id_raca           == ''  || pet.id_raca           == undefined || pet.id_raca           == null || isNaN(pet.id_raca)                       || pet.id_raca          <= 0    ||
                 pet.id_sexo           == ''  || pet.id_sexo           == undefined || pet.id_sexo           == null || isNaN(pet.id_sexo)                       || pet.id_sexo          <= 0    ||
                 pet.id_temperamento   == ''  || pet.id_temperamento   == undefined || pet.id_temperamento   == null || isNaN(pet.id_temperamento)               || pet.id_temperamento  <= 0    ||
                 pet.id_especie        == ''  || pet.id_especie        == undefined || pet.id_especie        == null || isNaN(pet.id_especie)                    || pet.id_especie       <= 0    ||
-                pet.id_saude          == ''  || pet.id_saude          == undefined || pet.id_saude          == null || isNaN(pet.id_saude)                      || pet.id_saude         <= 0   
+                pet.id_saude          == ''  || pet.id_saude          == undefined || pet.id_saude          == null || isNaN(pet.id_saude)                      || pet.id_saude         <= 0    ||
+                pet.id_endereco       == ''  || pet.id_endereco       == undefined || pet.id_endereco       == null || isNaN(pet.id_endereco)                   || pet.id_endereco      <= 0    
                )
        
            {
@@ -249,6 +252,10 @@ const listarPet = async function(){
                             itempet.saude = dadosSaude.saude
                             delete itempet.id_saude
 
+                            let dadosEndereco = await controllerEndereco.buscarEndereco(itempet.id_endereco)
+                            itempet.endereco = dadosEndereco.endereco
+                            delete itempet.id_endereco
+
                             // fazendo interação com a tbl_pet_genero
                             let dadosComportamento = await controllerpetComportamento.buscarComportamentoPet(itempet.id)
                             console.log(dadosComportamento)
@@ -328,6 +335,10 @@ const buscarPet = async function(id){
                             let dadosSaude = await controllerSaude.buscarSaude(itempet.id_saude)
                             itempet.saude = dadosSaude.saude
                             delete itempet.id_saude
+
+                            let dadosEndereco = await controllerEndereco.buscarEndereco(itemp.id_endereco)
+                            itempet.endereco = dadosEndereco.endereco
+                            delete itempet.id_endereco
 
                             // fazendo interação com a tbl_pet_genero
                             let dadosComportamento = await controllerpetComportamento.buscarComportamentoPet(itempet.id)

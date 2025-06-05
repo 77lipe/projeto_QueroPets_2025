@@ -75,7 +75,8 @@ const updatePet = async function(pet){
                                                 id_sexo = '${pet.id_sexo}',
                                                 id_temperamento = '${pet.id_temperamento}',
                                                 id_especie = '${pet.id_especie}',
-                                                id_saude = '${pet.id_saude}'
+                                                id_saude = '${pet.id_saude}',
+                                                id_endereco = '${pet.id_endereco}'
                                 where id = ${pet.id}`
 
     let resultpet= await prisma.$executeRawUnsafe(sql)

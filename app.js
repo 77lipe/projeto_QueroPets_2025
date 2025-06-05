@@ -839,6 +839,6 @@ app.put('/v1/controle-pet/pet-comportamento/:id', cors(), bodyParserJSON, async 
     response.json(resultPet)
 }) 
 
-app.listen('8080', function(){
+app.listen('3030', function(){
     console.log('API funcionando e aguardando requisições...')
 })

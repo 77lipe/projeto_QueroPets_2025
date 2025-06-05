@@ -37,7 +37,8 @@ const inserirUsuario = async function(user, contentType){
                 
 
                 if(resultuser){
-                    return{
+                
+                return{
                         ...message.SUCCESS_CREATED_ITEM, // 201
                         data: resultuser 
                     } 
