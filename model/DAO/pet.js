@@ -25,7 +25,8 @@ const insertPet = async function(pet){
                                                 id_sexo,
                                                 id_temperamento,
                                                 id_especie,
-                                                id_saude
+                                                id_saude,
+                                                id_endereco
                                             )
                                             values(
                                                 '${pet.nome}',
@@ -37,7 +38,8 @@ const insertPet = async function(pet){
                                                 '${pet.id_sexo}',
                                                 '${pet.id_temperamento}',
                                                 '${pet.id_especie}',
-                                                '${pet.id_saude}'
+                                                '${pet.id_saude}',
+                                                '${pet.id_endereco}'
                                             )`
 
             // Executa o scriptSQL no BD e aguarda o retorno no mesmo para saber se deu certo
@@ -46,8 +48,6 @@ const insertPet = async function(pet){
             
             if(result){
                 let getID = `SELECT * FROM tbl_pet WHERE nome = '${pet.nome}' ORDER BY id DESC LIMIT 1 `
-
-
 
                 let idPego = await prisma.$queryRawUnsafe(getID)
                 

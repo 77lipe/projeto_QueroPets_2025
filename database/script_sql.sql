@@ -4,7 +4,6 @@ use db_queropet;
 
 create table tbl_endereco(
 	id int not null primary key auto_increment,
-    estado varchar(24) not null,
     cep varchar(12),
     logradouro varchar (100),
     bairro varchar (100),
