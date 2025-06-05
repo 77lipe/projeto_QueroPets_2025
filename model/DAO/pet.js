@@ -20,27 +20,29 @@ const insertPet = async function(pet){
                                                 data_nascimento,
                                                 foto,
                                                 necessidades,
+                                                id_endereco,
                                                 id_porte,
                                                 id_raca,
                                                 id_sexo,
                                                 id_temperamento,
                                                 id_especie,
-                                                id_saude,
-                                                id_endereco
+                                                id_saude
                                             )
                                             values(
                                                 '${pet.nome}',
                                                 '${pet.data_nascimento}',
                                                 '${pet.foto}',
                                                 '${pet.necessidades}',
+                                                '${pet.id_endereco}',
                                                 '${pet.id_porte}',
                                                 '${pet.id_raca}',
                                                 '${pet.id_sexo}',
                                                 '${pet.id_temperamento}',
                                                 '${pet.id_especie}',
-                                                '${pet.id_saude}',
-                                                '${pet.id_endereco}'
+                                                '${pet.id_saude}'
+                                               
                                             )`
+
 
             // Executa o scriptSQL no BD e aguarda o retorno no mesmo para saber se deu certo
             let result = await prisma.$executeRawUnsafe(sql)
@@ -58,6 +60,7 @@ const insertPet = async function(pet){
             }
         
     } catch (error) {
+        console.log(error);
         return false
     }
 }

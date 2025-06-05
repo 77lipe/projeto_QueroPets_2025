@@ -52,8 +52,10 @@ app.use((request, response, next)=>{
    response.header('Acces-Control-Allow-Origin', '*')
    response.header('Acces-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
 
-   app.use(cors())
-   next()
+   app.use(cors(
+
+       ))
+   next() 
 })
 
 /************************************************ USUARIO *************************************************************/

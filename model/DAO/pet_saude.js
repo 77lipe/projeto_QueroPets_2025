@@ -1,6 +1,6 @@
 /********************************************************************************************************************************
-* Objetivo: Criar o CRUD de dados da tabela de petComportamneto no Banco de dados
-* Data: 11/02/2025
+* Objetivo: Criar o CRUD de dados da tabela de petSaude no Banco de dados
+* Data: 5/06/2025
 * Autor: Eduardo
 * Versão: 1.0
 *********************************************************************************************************************************/
@@ -11,19 +11,17 @@
  //Instancia da classe do PrismaClient(criar um objeto)
  const prisma = new PrismaClient()
  
- //Função para inserir uma nova petComportamneto
- const insertPetComportamento = async function(petComportamento){
-
-    console.log(petComportamento)
+ //Função para inserir uma nova petSaude
+ const insertPetSaude = async function(petSaude){
      try{
-         let sql  = `insert into tbl_pet_comportamento (
+         let sql  = `insert into tbl_pet_saude (
                                          id_pet,
-                                         id_comportamento
+                                         id_saude
                                          ) 
                                      values 
                                          ( 
-                                         ${petComportamento.id_pet},
-                                         ${petComportamento.id_comportamento}
+                                         ${petSaude.id_pet},
+                                         ${petSaude.id_saude}
                                          )`
          
          //Await só vai funcionar se na função estiver com o async
@@ -41,12 +39,12 @@
      }
  
  }
- //Função para atualizar uma petComportamneto existente
- const updatePetComportamento = async function(petComportamneto){
+ //Função para atualizar uma petSaude existente
+ const updatePetSaude = async function(petSaude){
      try {
-         let sql = `update tbl_pet_comportamento set id_pet = ${petComportamneto.id_pet},
-                                                              ${petComportamneto.id_comportamento}
-                     where id = ${petComportamneto.id} `
+         let sql = `update tbl_pet_saude set id_pet = ${petSaude.id_pet},
+                                                              ${petSaude.id_saude}
+                     where id = ${petSaude.id} `
  
          let  result = await prisma.$executeRawUnsafe(sql)
  
@@ -59,11 +57,11 @@
          return false
      }
  }
- //Função para excluir uma petComportamneto existente
- const deletePetComportamento = async function(id){
+ //Função para excluir uma petSaude existente
+ const deletePetSaude = async function(id){
      try {
  
-         let sql = `delete from tbl_pet_comportamento where id_pet =${id}`
+         let sql = `delete from tbl_pet_saude where id_pet =${id}`
  
          //
          let result = await prisma.$executeRawUnsafe(sql)
@@ -78,12 +76,12 @@
          return false
      }
  }
- //Função para retornar todas as petComportamneto do banco de dados
- const selectAllPetComportamento = async function(){
+ //Função para retornar todas as petSaude do banco de dados
+ const selectAllPetSaude = async function(){
      try {
  
          //Script SQL
-         let sql = 'select * from tbl_pet_comportamento order by id desc'
+         let sql = 'select * from tbl_pet_saude order by id desc'
  
          //Encaminha o script SQL para o Banco de dados
          let result = await prisma.$queryRawUnsafe(sql)
@@ -97,14 +95,14 @@
          return false
      }
  }
- //Função para buscar uma petComportamneto pelo ID
- const selectByIdPetComportamento = async function(number) {
+ //Função para buscar uma petSaude pelo ID
+ const selectByIdPetSaude = async function(number) {
      try {
          // Recebe o ID
          let id = number 
          
          // Script SQL 
-         let sql = `select * from tbl_pet_comportamento where id=${id} `
+         let sql = `select * from tbl_pet_saude where id=${id} `
  
          // Encaminha o Script SQL para o BD
          let result = await prisma.$queryRawUnsafe(sql)
@@ -120,14 +118,14 @@
  }
  
  //Função para retornar os filmes pelo genero
- const selectPetComportamento = async function(idComportamento){
+ const selectPetSaude = async function(idSaude){
     try {
         let sql = `
             SELECT tbl_pet.* 
             FROM tbl_pet
-            INNER JOIN tbl_pet_comportamento
-                ON tbl_pet.id = tbl_pet_comportamento.id_pet
-            WHERE tbl_pet_comportamento.id_comportamento = ${idComportamento}
+            INNER JOIN tbl_pet_saude
+                ON tbl_pet.id = tbl_pet_saude.id_pet
+            WHERE tbl_pet_saude.id_saude = ${idSaude}
         `
         let result = await prisma.$queryRawUnsafe(sql)
 
@@ -142,14 +140,14 @@
 }
    
    //Função para retornar os generos pelo Filme
-   const selectComportamentoPet = async function(idPet){
+   const selectSaudePet = async function(idPet){
     try {
         let sql = `
-            SELECT tbl_comportamento.* 
-            FROM tbl_comportamento
-            INNER JOIN tbl_pet_comportamento
-                ON tbl_comportamento.id = tbl_pet_comportamento.id_comportamento
-            WHERE tbl_pet_comportamento.id_pet = ${idPet}
+            SELECT tbl_saude.* 
+            FROM tbl_saude
+            INNER JOIN tbl_pet_saude
+                ON tbl_saude.id = tbl_pet_saude.id_saude
+            WHERE tbl_pet_saude.id_pet = ${idPet}
         `
         let result = await prisma.$queryRawUnsafe(sql)
 
@@ -165,11 +163,11 @@
  
  
  module.exports = {
-     insertPetComportamento,
-     updatePetComportamento,
-     deletePetComportamento,
-     selectAllPetComportamento,
-     selectByIdPetComportamento,
-     selectPetComportamento,
-     selectComportamentoPet
+     insertPetSaude,
+     updatePetSaude,
+     deletePetSaude,
+     selectAllPetSaude,
+     selectByIdPetSaude,
+     selectPetSaude,
+     selectSaudePet
  }
