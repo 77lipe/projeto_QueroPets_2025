@@ -85,11 +85,16 @@ create table tbl_pet(
     data_nascimento date not null,
     foto varchar(200) not null,
     necessidades varchar(200) not null,
+    id_endereco int,
     id_porte int,
     id_raca int,
     id_sexo int ,
     id_temperamento int,
     id_especie int,
+
+    constraint FK_PET_ENDERECO
+    foreign key (id_endereco)
+    references tbl_endereco(id),
     
      constraint FK_PET_PORTE
     foreign key (id_porte)
