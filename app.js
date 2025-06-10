@@ -841,7 +841,7 @@ app.put('/v1/controle-pet/pet-comportamento/:id', cors(), bodyParserJSON, async 
     response.json(resultPet)
 }) 
 
-/************************************************ PET_COMPORTAMENTO *************************************************************/
+/************************************************ PET_SAUDE *************************************************************/
 
 //END-POINT para inserir um pet
 app.post('/v1/controle-pet/pet-saude', cors(), bodyParserJSON, async function(request, response){

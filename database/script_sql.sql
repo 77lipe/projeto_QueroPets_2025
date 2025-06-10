@@ -115,7 +115,7 @@ create table tbl_pet(
     
 	constraint FK_PET_ESPECIE
     foreign key (id_especie)
-    references tbl_especie(id),
+    references tbl_especie(id)
     
 );
 
