@@ -13,6 +13,8 @@
  
  //Função para inserir uma nova petSaude
  const insertPetSaude = async function(petSaude){
+    //console.log(petSaude);
+    
      try{
          let sql  = `insert into tbl_pet_saude (
                                          id_pet,
@@ -30,7 +32,7 @@
          //Executa um script sql no banco de dados, e aguarda o resultado (retornando um true or false)
          let result  = await prisma.$executeRawUnsafe(sql)
         //  console.log(result);
-        console.log(result);
+        
          if(result)
              return  true
          else

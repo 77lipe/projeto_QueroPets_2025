@@ -13,8 +13,7 @@
  
  //Função para inserir uma nova petComportamneto
  const insertPetComportamento = async function(petComportamento){
-
-    console.log(petComportamento)
+    
      try{
          let sql  = `insert into tbl_pet_comportamento (
                                          id_pet,
@@ -25,6 +24,9 @@
                                          ${petComportamento.id_pet},
                                          ${petComportamento.id_comportamento}
                                          )`
+
+                                         console.log(sql);
+                                         
          
          //Await só vai funcionar se na função estiver com o async
          //Executa um script sql no banco de dados, e aguarda o resultado (retornando um true or false)

@@ -58,7 +58,7 @@ const insertPet = async function(pet){
             }
         
     } catch (error) {
-        console.log(error);
+       // console.log(error);
         return false
     }
 }

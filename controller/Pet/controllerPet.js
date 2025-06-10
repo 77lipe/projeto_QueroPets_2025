@@ -25,7 +25,7 @@ const controllerPetSaude = require('../Pet/controllerSaudePet.js')
 
 // função para tratar a inserção de um novo pet no DAO
 const inserirPet = async function(pet, contentType){
-    console.log(pet);
+    //console.log(pet);
 
     try{
 
@@ -68,14 +68,17 @@ const inserirPet = async function(pet, contentType){
 
                         // Para cada gênero no array do body, cria uma variavel comportamento na lista de pet 
                         for (let comportamento of pet.comportamento) {
+                            console.log(comportamento);
+                            
                            
                             // verifica se o campo "comportamento" possui um atributo id e se é int
-                            if (comportamento.id && !isNaN(comportamento.id)) {
+                            if (comportamento.comportamento && !isNaN(comportamento.comportamento)) {
                                 // adicionando os ids na tbl_pet_Comportamento
                                 let petComportamento = {
                                     id_pet: idpet,
-                                    id_comportamento: comportamento.id
+                                    id_comportamento: comportamento.comportamento
                                 }
+                              
                                 
                                 //console.log(petComportamento)
                                 await petComportamentoDAO.insertPetComportamento(petComportamento);
@@ -84,12 +87,14 @@ const inserirPet = async function(pet, contentType){
 
                         // Para cada gênero no array do body, cria uma variavel comportamento na lista de pet 
                         for (let saude of pet.saude) {
+                            console.log(saude);
+
                             // verifica se o campo "comportamento" possui um atributo id e se é int
-                            if (saude.id && !isNaN(saude.id)) {
+                            if (saude.saude && !isNaN(saude.saude)) {
                                 // adicionando os ids na tbl_pet_Comportamento
                                 let petSaude = {
                                     id_pet: idpet,
-                                    id_saude: saude.id
+                                    id_saude: saude.saude
                                 }
                                 // console.log(petSaude)
                                 await petSaudeDAO.insertPetSaude(petSaude);

@@ -13,6 +13,7 @@
  
  //Função para inserir uma nova saude
  const insertSaude = async function(saude){
+    console.log(saude)
      try{
          let sql  = `insert into tbl_saude (
                          saude
