@@ -45,14 +45,13 @@ const insertUser = async function(user){
                    
 
                     let idPego = await prisma.$queryRawUnsafe(getID)
+                    console.log(idPego[0])
                     
                     return idPego[0]
                 }else{
                     return false
                 }
                 
-                    
-            
         
     } catch (error) {
         console.log(error)

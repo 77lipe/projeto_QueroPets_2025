@@ -29,7 +29,10 @@ const inserirEndereco = async function(endereco, contentType){
 
                 
                 if(resultendereco){
-                    return message.SUCCESS_CREATED_ITEM // 201
+                    return{
+                            ...message.SUCCESS_CREATED_ITEM, // 201
+                            data: resultendereco
+                        }
                 }else{
                     return message.ERROR_INTERNAL_SERVER_MODEL//500
                 }

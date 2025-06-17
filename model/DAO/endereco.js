@@ -35,7 +35,13 @@ const insertEndereco = async function(endereco){
             
 
             if(result != 0){
-                console.log(result)
+                let getID = `SELECT * FROM tbl_endereco WHERE cep = '${endereco.cep}' ORDER BY id DESC LIMIT 1 `
+                   
+
+                    let idPego = await prisma.$queryRawUnsafe(getID)
+                    console.log(idPego[0])
+                    
+                    return idPego[0]
             }else{
                 console.log("result não está sendo recebido")
                 
